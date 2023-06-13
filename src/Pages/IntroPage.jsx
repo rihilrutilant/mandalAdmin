@@ -16,7 +16,7 @@ const IntroPage = () => {
   return (
     <>
       <div className="loading-container">
-        <img src={logo} alt="Logo" className="logo" />
+        <img src={logo} alt="Logo" className="logo123" />
       </div>
     </>
   )

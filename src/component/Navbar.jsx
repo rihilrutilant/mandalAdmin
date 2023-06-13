@@ -18,10 +18,11 @@ import { ImBooks } from 'react-icons/im'
 import { NavLink } from "react-router-dom";
 import { SiGoogleclassroom } from "react-icons/si"
 import "../style/navbar.css";
+import logo from "../../src/assets/logo2.png"
 
 const ICON_SIZE = 20;
 
-function Navbar() {
+function Navbar({ visible, show }) {
 
   const logout = () => {
     localStorage.clear();
@@ -32,56 +33,56 @@ function Navbar() {
     <>
       {/* <div className='body_content'> */}
       <nav className='navbar'>
-        <div>
-          <NavLink className="logo" to="#">
-            {/* <img src={} alt="logo" /> */}
+        <div style={{ display: "block" }}>
+          <NavLink className="logo" to="/">
+            <img src={logo} alt="logo" />
           </NavLink>
           <div className="links nav-top">
-            <NavLink to="/dashboard" className="nav-link">
+            <NavLink to="/demo" className="nav-link">
               <FaThLarge size={ICON_SIZE} />
               <span>Dashboard</span>
             </NavLink>
-            <NavLink to="/id" className="nav-link">
+            <NavLink to="/mukhiya_member" className="nav-link">
               <BsPersonLinesFill size={ICON_SIZE} />
-              <span>Generate ID</span>
+              <span>Mukhya</span>
             </NavLink>
-            <NavLink to="/exam" className="nav-link">
+            <NavLink to="/demo" className="nav-link">
               <IoIosPaper size={ICON_SIZE} />
               <span>Exam</span>
             </NavLink>
-            <NavLink to="/fees" className="nav-link">
+            <NavLink to="/demo" className="nav-link">
               <BsCreditCard2BackFill size={ICON_SIZE} />
               <span>Fees</span>
             </NavLink>
-            <NavLink to="/result" className="nav-link">
+            <NavLink to="/demo" className="nav-link">
               <RiFilePaperFill size={ICON_SIZE} />
               <span>Result</span>
             </NavLink>
-            <NavLink to="/notice" className="nav-link">
+            <NavLink to="/demo" className="nav-link">
               <FaChalkboardTeacher size={ICON_SIZE} />
               <span>Notice Board</span>
             </NavLink>
-            <NavLink to="/events" className="nav-link">
+            <NavLink to="/demo" className="nav-link">
               <SlCalender size={ICON_SIZE} />
               <span>Events</span>
             </NavLink>
-            <NavLink to="/complain" className="nav-link">
+            <NavLink to="/demo" className="nav-link">
               <TfiDropboxAlt size={ICON_SIZE} />
               <span>Complain Box</span>
             </NavLink>
-            <NavLink to="/holiday" className="nav-link">
+            <NavLink to="/demo" className="nav-link">
               <TbBeach size={ICON_SIZE} />
               <span>Holidays</span>
             </NavLink>
-            <NavLink to="/time" className="nav-link">
+            <NavLink to="/demo" className="nav-link">
               <VscTable size={ICON_SIZE} />
               <span>Time Table</span>
             </NavLink>
-            <NavLink to="/subject" className="nav-link">
+            <NavLink to="/demo" className="nav-link">
               <ImBooks size={ICON_SIZE} />
               <span>Subject</span>
             </NavLink>
-            <NavLink to="/class" className="nav-link">
+            <NavLink to="/demo" className="nav-link">
               <SiGoogleclassroom size={ICON_SIZE} />
               <span>Class</span>
             </NavLink>
