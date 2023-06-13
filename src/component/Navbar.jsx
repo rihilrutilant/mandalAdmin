@@ -22,7 +22,7 @@ import logo from "../../src/assets/logo2.png"
 
 const ICON_SIZE = 20;
 
-function Navbar({ visible, show }) {
+function Navbar() {
 
   const logout = () => {
     localStorage.clear();

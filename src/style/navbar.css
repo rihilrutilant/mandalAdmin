@@ -21,7 +21,7 @@ nav {
 }
 
 .navbar {
-    max-width: 230px;
+    max-width: 300px;
     padding: 0;
 }
 
@@ -86,7 +86,7 @@ nav {
 .nav-top .nav-link.active {
     background: #fff;
     border-radius: 5px;
-    color: #28A7E8;
+    color: #EF7E1C;
     justify-content: center;
 }
 
@@ -100,7 +100,7 @@ nav {
 
 .nav-top .nav-link.active span {
     margin-left: 12px;
-    color: #28A7E8;
+    color: #EF7E1C;
 }
 
 .mobile-nav {
