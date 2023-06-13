@@ -1,16 +1,35 @@
-import React from 'react'
+import React, { useState } from 'react'
 import '../style/MukhyaMember.css'
 import SideBar from "../component/SideBar"
 import wl from "../assets/whatsapp.png"
 import Navbar from '../component/Navbar'
 
 const MukhyaMember = () => {
+
+  const [allData, setallData] = useState({
+    number: "",
+    id: "",
+    password: ""
+  })
+
+  const onChangesholiday = (e) => {
+    setallData({ ...allData, [e.target.name]: e.target.value })
+    console.log(allData.number);
+    console.log(allData.id);
+    console.log(allData.password);
+  }
+
   return (
     <>
       <div className="flex-section">
         <SideBar />
         <div className="total-rightsde-section">
           <Navbar />
+          <div className="add-data">
+            <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+              + Add Data
+            </button>
+          </div>
           <table class="table table-striped oneeight">
             <thead>
               <tr>
@@ -32,6 +51,33 @@ const MukhyaMember = () => {
             </tbody>
           </table>
         </div>
+
+        {/* --------- Add Data --------------- */}
+
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel">Add New Data</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <p className='modal-title-name'>Mukhiya Mobile No</p>
+                <input type="text" className='input-tag' onChange={onChangesholiday} name='number' />
+                <p className='modal-title-name'>Member ID</p>
+                <input type="text" className='input-tag' onChange={onChangesholiday} name='id' />
+                <p className='modal-title-name'>Password</p>
+                <input type="text" className='input-tag' onChange={onChangesholiday} name='password' />
+              </div>
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">Save changes</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* --------- Add Data --------------- */}
+
       </div>
     </>
   )
