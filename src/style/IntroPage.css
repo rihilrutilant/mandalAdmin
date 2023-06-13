@@ -1,0 +1,25 @@
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.logo {
+  width: 5px;
+  height: 5px;
+  animation: zoomIn 2s ease-in-out forwards;
+}
+
+@keyframes zoomIn {
+  0% {
+    width: 5px;
+    height: 5px;
+  }
+
+  100% {
+    width: 430px;
+    height: 430px;
+  }
+}
