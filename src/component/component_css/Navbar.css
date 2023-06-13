@@ -1,0 +1,15 @@
+.news-headline {
+    height: 100px;
+    width: 100%;
+    background: #F5EACF;
+    overflow: hidden;
+}
+
+.news-headline marquee {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    font-size: 24px;
+    font-weight: 400;
+}
