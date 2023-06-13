@@ -36,7 +36,6 @@ const MukhyaMember = () => {
     fetchallmembers();
   }, [fetchallmembers])
 
-
   //---------------------fetch all members------------------
 
 
