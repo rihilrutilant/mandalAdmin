@@ -30,7 +30,7 @@ const MukhyaMember = () => {
               + Add Data
             </button>
           </div>
-          <table class="table table-striped oneeight">
+          <table className="table table-striped oneeight">
             <thead>
               <tr>
                 <th scope="col">#</th>
@@ -54,14 +54,14 @@ const MukhyaMember = () => {
 
         {/* --------- Add Data --------------- */}
 
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h4 class="modal-title" id="exampleModalLabel">Add New Data</h4>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div className="modal-dialog">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h4 className="modal-title" id="exampleModalLabel">Add New Data</h4>
+                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
-              <div class="modal-body">
+              <div className="modal-body">
                 <p className='modal-title-name'>Mukhiya Mobile No</p>
                 <input type="text" className='input-tag' onChange={onChangesholiday} name='number' />
                 <p className='modal-title-name'>Member ID</p>
@@ -69,8 +69,8 @@ const MukhyaMember = () => {
                 <p className='modal-title-name'>Password</p>
                 <input type="text" className='input-tag' onChange={onChangesholiday} name='password' />
               </div>
-              <div class="modal-footer">
-                <button type="submit" class="btn btn-primary">Save changes</button>
+              <div className="modal-footer">
+                <button type="submit" className="btn btn-primary">Save changes</button>
               </div>
             </div>
           </div>
