@@ -44,7 +44,7 @@ const SideBar = () => {
               <BsPersonLinesFill size={ICON_SIZE} />
               <span>Mukhya</span>
             </NavLink>
-            <NavLink to="/demo" className="nav-link">
+            <NavLink to="/headline" className="nav-link">
               <IoIosPaper size={ICON_SIZE} />
               <span>HeadLine</span>
             </NavLink>

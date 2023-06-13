@@ -3,7 +3,7 @@ import './component_css/Navbar.css'
 import apiconst from '../keys.js'
 import axios from 'axios'
 
-const Navbar = () => {
+const Navbar = (props) => {
 
   const [headLine, setheadLine] = useState()
 
@@ -26,6 +26,11 @@ const Navbar = () => {
         console.log(error);
       });
   },[])
+
+
+  if(props.data === true){
+    getHeadLine()
+  }
 
   useEffect(() => {
     getHeadLine()

@@ -1,0 +1,26 @@
+.headline {
+    width: 100%;
+    max-width: 500px;
+    margin: 100px 0 0 100px;
+}
+
+.edit_icon {
+    font-size: 30px;
+    position: absolute;
+    background-color: #ffffff;
+    right: -13px;
+    bottom: -13px;
+    cursor: pointer;
+}
+
+.edit_box{
+    position: relative;
+}
+
+.edit_txt{
+    margin: 0 auto;
+}
+
+.txt_edit{
+    padding: 10px;
+}
