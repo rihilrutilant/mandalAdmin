@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState, useRef } from 'react'
 import SideBar from "../component/SideBar"
 import Navbar from '../component/Navbar'
-import apiconst from '../keys'
+import {apiconst} from '../keys'
 import axios from 'axios'
 import '../style/Headline.css'
 import { BiEditAlt } from 'react-icons/bi'

@@ -48,9 +48,9 @@ const SideBar = () => {
               <IoIosPaper size={ICON_SIZE} />
               <span>HeadLine</span>
             </NavLink>
-            <NavLink to="/demo" className="nav-link">
+            <NavLink to="/slider" className="nav-link">
               <BsCreditCard2BackFill size={ICON_SIZE} />
-              <span>Fees</span>
+              <span>Slider</span>
             </NavLink>
             <NavLink to="/demo" className="nav-link">
               <RiFilePaperFill size={ICON_SIZE} />
