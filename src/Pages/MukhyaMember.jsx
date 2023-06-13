@@ -1,10 +1,14 @@
 import React from 'react'
-import Navbar from '../component/Navbar'
+import '../style/MukhyaMember.css'
+import Navbar from "../component/Navbar"
 
 const MukhyaMember = () => {
   return (
     <>
-      <Navbar />
+      <div className="flex-section">
+        <Navbar />
+        <h1>MukhyaMember</h1>
+      </div>
     </>
   )
 }
