@@ -12,6 +12,7 @@ const apiconst = {
     edit_mukhya_member: `${BASE_URL}/api/slider/admin/edit_mukhya_member/`,
     add_slider: `${BASE_URL}/api/slider/add_slider_img`,
     remove_member: `${BASE_URL}/api/slider/remove_member/`,
+    delete_slider: `${BASE_URL}/api/slider/delete_slider_img/`,
 }
 
 export { apiconst, BASE_URL }

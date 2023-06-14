@@ -5,6 +5,7 @@ import axios from 'axios'
 import { apiconst, BASE_URL } from '../keys'
 import '../style/Slider.css'
 import { MdDelete } from 'react-icons/md'
+import { Link } from 'react-router-dom'
 
 const Slider = () => {
 
@@ -75,6 +76,28 @@ const Slider = () => {
     }
     // ------------------ Add Slider ------------------------
 
+
+    // ----------------- Delete Slider --------------------
+    const deleteSlider = (id) => {
+        let config = {
+            method: 'delete',
+            maxBodyLength: Infinity,
+            url: apiconst.delete_slider+id,
+            headers: {
+                'auth-token': localStorage.getItem('Admin_Token')
+            }
+        };
+
+        axios.request(config)
+            .then((response) => {
+                fetchSlider()
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
+    // ----------------- Delete Slider --------------------
+
     useEffect(() => {
         fetchSlider()
     }, [fetchSlider])
@@ -94,11 +117,14 @@ const Slider = () => {
                     <div className="img_container">
                         {
                             setsliderimg && setsliderimg.map((item, key) => (
-                                <div className="imgs_container">
-                                    <img key={key} src={`${BASE_URL}/slider_image/${item.slider_photo}`} alt="slider" className='sub_imgs' />
-                                    <p className="title">DELETE BANNER</p>
+                                <div key={key} className="imgs_container">
+                                    <img src={`${BASE_URL}/slider_image/${item.slider_photo}`} alt="slider" className='sub_imgs' />
                                     <div className="overlay"></div>
-                                    <div className="button"><a href="#"> <MdDelete/> </a></div>
+                                    <div className="button">
+                                        <Link to="#" onClick={() => deleteSlider(item.slider_id)}>
+                                            <MdDelete />
+                                        </Link>
+                                    </div>
                                 </div>
                             ))
                         }
