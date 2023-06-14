@@ -1,14 +1,19 @@
 import React, { useEffect } from 'react'
 import '../style/IntroPage.css'
-import { useNavigate } from 'react-router-dom';
 import logo from '../assets/logo.svg'
 
 const IntroPage = () => {
-  const navigate = useNavigate()
+  const userData = localStorage.getItem("Admin_Token");
+
+
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      navigate('/admin_login')
+      if (userData) {
+        window.location.href = "/mukhiya_member"
+      } else {
+        window.location.href = "/admin_login"
+      }
     }, 3000);
     return () => clearTimeout(timer);
   }, []);

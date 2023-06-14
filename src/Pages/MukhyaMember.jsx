@@ -4,13 +4,12 @@ import SideBar from "../component/SideBar"
 import wl from "../assets/whatsapp.png"
 import Navbar from '../component/Navbar'
 import axios from 'axios'
-import {apiconst} from '../keys'
+import { apiconst } from '../keys'
 import { BiEditAlt } from 'react-icons/bi'
 
 const MukhyaMember = () => {
 
   //---------------------fetch all members------------------
-
   const [allmembers, setallmembers] = useState()
 
   const fetchallmembers = useCallback(() => {
@@ -24,14 +23,14 @@ const MukhyaMember = () => {
     };
 
     axios.request(config)
-      .then((response) => {
-        const data = response.data;
+      .then(async (response) => {
+        let data = response.data;
         setallmembers(data)
       })
       .catch((error) => {
         console.log(error);
       });
-  })
+  }, [])
 
   useEffect(() => {
     fetchallmembers();
@@ -67,15 +66,15 @@ const MukhyaMember = () => {
       });
   }
   const onChangesholiday = (e) => {
-    setallData({ ...allData, [e.target.name]: e.target.value })
+    setallData(() => ({ ...allData, [e.target.name]: e.target.value }))
   }
   // ---------------- Add member--------------------
 
   // ---------------- Edit member--------------------
-
   const [editMember, setEditMember] = useState({
+    mukhiya_id: "",
     mukhiya_mobile_no: "",
-    password: ""
+    member_password: ""
   })
 
   const ref = useRef(null);
@@ -83,28 +82,40 @@ const MukhyaMember = () => {
   const updateMember = (currentRest) => {
     ref.current.click();
     setEditMember({
+      mukhiya_id: currentRest.mukhiya_id,
       mukhiya_mobile_no: currentRest.mukhiya_mobile_no,
-      password: currentRest.password
+      member_password: currentRest.member_password
     })
   }
 
-  const updateAllMember = (e) => {
-    e.preventDefault()
+  const handleSubmit = (e) => {
+    updateAllMember(
+      editMember.mukhiya_id,
+      editMember.mukhiya_mobile_no,
+      editMember.member_password,
+    )
+  }
+
+  const updateAllMember = (id, mukhiya_mobile_no, member_password) => {
 
     let config = {
       method: 'put',
       maxBodyLength: Infinity,
-      url: apiconst.edit_mukhya_member,
+      url: apiconst.edit_mukhya_member + id,
       headers: {
         'auth-token': localStorage.getItem('Admin_Token'),
         'Content-Type': 'application/json'
       },
-      data: editMember
+      data: JSON.stringify({
+        "mukhiya_mobile_no": mukhiya_mobile_no,
+        "member_password": member_password
+      })
     };
 
     axios.request(config)
       .then((response) => {
         refClose.current.click()
+        fetchallmembers()
       })
       .catch((error) => {
         alert("There is something wrong entry")
@@ -131,10 +142,11 @@ const MukhyaMember = () => {
           <table className="table table-striped oneeight">
             <thead>
               <tr>
-                <th scope="col">Index</th>
+                <th scope="col" className='all-padding'>Index</th>
                 <th scope="col">Mukhiya Mobile No</th>
                 <th scope="col">Member ID</th>
                 <th scope="col">Password</th>
+                <th scope="col"></th>
                 <th scope="col"></th>
                 <th scope="col"></th>
               </tr>
@@ -143,7 +155,7 @@ const MukhyaMember = () => {
               {
                 allmembers && allmembers.map((item, index) => (
                   <tr key={index}>
-                    <th scope="row">{item.mukhiya_id}</th>
+                    <th scope="row" className='all-padding1'>{item.mukhiya_id}</th>
                     <td>{item.mukhiya_mobile_no}</td>
                     <td>{item.member_id}</td>
                     <td>{item.member_password}</td>
@@ -195,10 +207,10 @@ const MukhyaMember = () => {
                 <p className='modal-title-name'>Mukhiya Mobile No</p>
                 <input type="text" className='input-tag' onChange={editChange} name='mukhiya_mobile_no' value={editMember.mukhiya_mobile_no} />
                 <p className='modal-title-name'>Password</p>
-                <input type="password" className='input-tag' onChange={editChange} name='password' value={editMember.password} />
+                <input type="text" className='input-tag' onChange={editChange} name='member_password' value={editMember.member_password} />
               </div>
               <div className="modal-footer">
-                <button onClick={updateAllMember} type="submit" className="btn btn-primary">Save changes</button>
+                <button onClick={() => handleSubmit()} type="submit" className="btn btn-primary">Save changes</button>
               </div>
             </div>
           </div>

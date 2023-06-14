@@ -1,14 +1,16 @@
 import React, { useState } from 'react'
-import {apiconst} from '../keys'
+import { apiconst } from '../keys'
 import axios from 'axios'
 import logo from '../assets/logo.svg'
-import { useNavigate } from 'react-router-dom'
 import '../style/AdminLogin.css'
 
 const AdminLogin = () => {
 
-  const naviget = useNavigate()
+  const userData = localStorage.getItem("Admin_Token");
 
+  if (userData) {
+    window.location.href = "/mukhiya_member"
+  }
   // ------------------ Admin Login----------------------
   const [admin_info, setadmin_info] = useState({
     mobile_no: "",
@@ -34,7 +36,7 @@ const AdminLogin = () => {
         if (data.status === 1) {
           const A_token = data.data.auth_token;
           localStorage.setItem("Admin_Token", A_token)
-          naviget('/mukhiya_member')
+          window.location.href = '/mukhiya_member';
         }
       })
       .catch((error) => {
