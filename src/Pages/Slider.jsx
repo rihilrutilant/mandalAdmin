@@ -1,11 +1,18 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import SideBar from "../component/SideBar"
 import Navbar from '../component/Navbar'
 import axios from 'axios'
 import { apiconst, BASE_URL } from '../keys'
+import '../style/Slider.css'
+import { MdDelete } from 'react-icons/md'
 
 const Slider = () => {
+
+    const refclose = useRef()
+
+    // ------------ fetch all slider---------------------------------
     const [setsliderimg, setsetsliderimg] = useState()
+
     const fetchSlider = useCallback(() => {
         let config = {
             method: 'post',
@@ -24,7 +31,49 @@ const Slider = () => {
             .catch((error) => {
                 console.log(error);
             });
-    })
+    }, [])
+    // ------------ fetch all slider---------------------------------
+
+
+    // ------------------ Add Slider ------------------------
+    const [slider_image, setslider_image] = useState()
+
+    const add_banner = (e) => {
+        e.preventDefault()
+        const FormData = require('form-data');
+        let data = new FormData();
+        if (!slider_image) {
+            alert("please add the banner")
+        } else {
+            data.append('image', slider_image);
+
+            let config = {
+                method: 'post',
+                maxBodyLength: Infinity,
+                url: apiconst.add_slider,
+                headers: {
+                    'auth-token': localStorage.getItem('Admin_Token')
+                },
+                data: data
+            };
+
+            axios.request(config)
+                .then((response) => {
+                    fetchSlider()
+                    refclose.current.click()
+                })
+                .catch((error) => {
+                    console.log(error);
+                    alert("please add the banner")
+                });
+        }
+    }
+
+    const slider_imgs = (e) => {
+        const file = e.target.files[0];
+        setslider_image(file)
+    }
+    // ------------------ Add Slider ------------------------
 
     useEffect(() => {
         fetchSlider()
@@ -37,11 +86,44 @@ const Slider = () => {
                 <SideBar />
                 <div className="total-rightsde-section">
                     <Navbar />
-                    {
-                        setsliderimg && setsliderimg.map((item, key) => (
-                            <img src={`${BASE_URL}/slider_image/${item.slider_photo}`} alt="slider" />
-                        ))
-                    }
+                    <div className="ad_slider">
+                        <button type="button" className="ad_slider_btn" data-bs-toggle="modal" data-bs-target="#Add_model">
+                            Launch demo modal
+                        </button>
+                    </div>
+                    <div className="img_container">
+                        {
+                            setsliderimg && setsliderimg.map((item, key) => (
+                                <div className="imgs_container">
+                                    <img key={key} src={`${BASE_URL}/slider_image/${item.slider_photo}`} alt="slider" className='sub_imgs' />
+                                    <p className="title">DELETE BANNER</p>
+                                    <div className="overlay"></div>
+                                    <div className="button"><a href="#"> <MdDelete/> </a></div>
+                                </div>
+                            ))
+                        }
+                    </div>
+                </div>
+            </div>
+
+
+            {/* <!-- Modal --> */}
+            <div className="modal fade" id="Add_model" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div className="modal-dialog">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <h1 className="modal-title fs-5" id="exampleModalLabel">Add Banner</h1>
+                            <button type="button" className="btn-close" ref={refclose} data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <form>
+                            <div className="modal-body">
+                                <input type="file" name="image" id="sliders" required onChange={slider_imgs} />
+                            </div>
+                            <div className="modal-footer">
+                                <button type="submit" onClick={add_banner} className="ad_slider_btn2">Save changes</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </>
