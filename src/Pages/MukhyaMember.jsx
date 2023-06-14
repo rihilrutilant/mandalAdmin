@@ -46,6 +46,7 @@ const MukhyaMember = () => {
     password: ""
   })
   const refClose = useRef(null);
+  const refClose1 = useRef(null);
   const addData = (e) => {
     var config = {
       method: 'post',
@@ -59,7 +60,8 @@ const MukhyaMember = () => {
     };
     axios(config)
       .then(function (response) {
-        refClose.current.click()
+        refClose1.current.click()
+        fetchallmembers()
       })
       .catch(function (error) {
         alert("Please Enter Valid Data")
@@ -174,7 +176,7 @@ const MukhyaMember = () => {
             <div className="modal-content">
               <div className="modal-header">
                 <h4 className="modal-title" id="exampleModalLabel">Add New Data</h4>
-                <button type="button" className="btn-close" ref={refClose} data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" className="btn-close" ref={refClose1} data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div className="modal-body">
                 <p className='modal-title-name'>Mukhiya Mobile No</p>
