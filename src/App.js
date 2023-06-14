@@ -6,6 +6,7 @@ import Demo from "./Pages/Demo";
 import HeadLine from "./Pages/HeadLine";
 import Slider from "./Pages/Slider";
 import PageNotFound from "./Pages/PageNotFound";
+import FetchData from "./Pages/FetchData";
 
 function App() {
   const userData = localStorage.getItem("Admin_Token");
@@ -27,6 +28,7 @@ function App() {
               <Route path="/demo" element={<Demo />} />
               <Route path="/headline" element={<HeadLine />} />
               <Route path="/slider" element={<Slider />} />
+              <Route path="/fetchdata" element={<FetchData />} />
             </>
           )}
           <Route path="*" element={<PageNotFound />} />

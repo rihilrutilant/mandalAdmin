@@ -143,7 +143,7 @@ const Slider = () => {
                         </div>
                         <form>
                             <div className="modal-body">
-                                <input type="file" name="image" id="sliders" required onChange={slider_imgs} />
+                                <input type="file" name="image" id="sliders" required onChange={slider_imgs} accept="image/*"/>
                             </div>
                             <div className="modal-footer">
                                 <button type="submit" onClick={add_banner} className="ad_slider_btn2">Save changes</button>

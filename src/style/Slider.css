@@ -30,7 +30,7 @@
     flex-flow: row wrap;
     width: 100%;
     max-width: 1560px;
-    margin: 10px auto;
+    padding: 0 50px;
 }
 
 .imgs_container {

@@ -4,7 +4,7 @@
 
 .oneeight {
     height: 30px;
-    margin: 80px 0;
+    margin: 40px 0;
     border: 1px;
 }
 
@@ -25,15 +25,7 @@
 
 .add-data {
     display: flex;
-    justify-content: flex-end;
-    margin: 30px;
-}
-
-.add-data button {
-    padding: 10px 20px;
-    border: 1px solid;
-    border-radius: 8px;
-    font-size: 17px;
+    justify-content: flex-end;  
 }
 
 .modal-title-name {
@@ -54,10 +46,43 @@
     font-size: 25px;
 }
 
+.cursor-pointer1 {
+    cursor: pointer;
+    font-size: 25px;
+    color: black;
+}
+
 .all-padding {
     padding-left: 20px !important;
 }
 
 .all-padding1 {
     padding-left: 30px !important;
+}
+
+.wp {
+    cursor: pointer;
+    font-size: 25px;
+    background: green;
+    color: white;
+    border-radius: 14px 14px 14px 6px;
+}
+
+.form-width{
+    max-width: 900px;
+}
+
+.display-flex-section{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    gap: 35px;
+}
+
+.first-part{
+    width: 100%;
+}
+
+.second-part{
+    width: 100%;
 }
