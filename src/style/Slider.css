@@ -26,10 +26,11 @@
 
 .img_container {
     display: flex;
-    gap: 20px;
+    gap: 40px;
     flex-flow: row wrap;
+    justify-content: center;
     width: 100%;
-    max-width: 1560px;
+    max-width: 1820px;
     padding: 0 50px;
 }
 
@@ -91,4 +92,3 @@
 .imgs_container:hover .button {
     opacity: 1;
 }
-
