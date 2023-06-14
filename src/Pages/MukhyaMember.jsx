@@ -1,16 +1,20 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import '../style/MukhyaMember.css'
 import SideBar from "../component/SideBar"
-import wl from "../assets/whatsapp.png"
 import Navbar from '../component/Navbar'
 import axios from 'axios'
 import { apiconst } from '../keys'
 import { BiEditAlt } from 'react-icons/bi'
+import { BsWhatsapp } from 'react-icons/bs'
+import { AiFillEye } from 'react-icons/ai'
+import { Link } from 'react-router-dom'
 
 const MukhyaMember = () => {
 
   //---------------------fetch all members------------------
   const [allmembers, setallmembers] = useState()
+
+  const [lastId, setlastId] = useState()
 
   const fetchallmembers = useCallback(() => {
     let config = {
@@ -25,6 +29,17 @@ const MukhyaMember = () => {
     axios.request(config)
       .then(async (response) => {
         let data = response.data;
+        if (data.length > 0) {
+          for (let index = data.length - 1; index < data.length; index++) {
+            const element = data[index].member_id;
+            const numericPart = parseInt(element.slice(4), 10);
+            const newId = `MPGM${(numericPart + 1).toString().padStart(4, '0')}`;
+            setlastId(newId);
+          }
+        }
+        else {
+          setlastId('MPGM0001')
+        }
         setallmembers(data)
       })
       .catch((error) => {
@@ -36,18 +51,23 @@ const MukhyaMember = () => {
     fetchallmembers();
   }, [fetchallmembers])
 
+
   //---------------------fetch all members------------------
 
 
   // ---------------- Add member--------------------
   const [allData, setallData] = useState({
     mukhiya_mobile_no: "",
-    member_id: "",
     password: ""
   })
+
   const refClose = useRef(null);
   const refClose1 = useRef(null);
-  const addData = (e) => {
+
+
+  const addData = (id) => {
+    const { mukhiya_mobile_no, password } = allData
+    const member_id = id
     var config = {
       method: 'post',
       maxBodyLength: Infinity,
@@ -56,7 +76,7 @@ const MukhyaMember = () => {
         'auth-token': localStorage.getItem('Admin_Token'),
         'Content-Type': 'application/json'
       },
-      data: allData
+      data: JSON.stringify({ mukhiya_mobile_no, member_id, password })
     };
     axios(config)
       .then(function (response) {
@@ -137,37 +157,40 @@ const MukhyaMember = () => {
         <div className="total-rightsde-section">
           <Navbar />
           <div className="add-data">
-            <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            <button className='ad_slider_btn' type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
               + Add Data
             </button>
           </div>
-          <table className="table table-striped oneeight">
-            <thead>
-              <tr>
-                <th scope="col" className='all-padding'>Index</th>
-                <th scope="col">Mukhiya Mobile No</th>
-                <th scope="col">Member ID</th>
-                <th scope="col">Password</th>
-                <th scope="col"></th>
-                <th scope="col"></th>
-                <th scope="col"></th>
-              </tr>
-            </thead>
-            <tbody>
-              {
-                allmembers && allmembers.map((item, index) => (
-                  <tr key={index}>
-                    <th scope="row" className='all-padding1'>{item.mukhiya_id}</th>
-                    <td>{item.mukhiya_mobile_no}</td>
-                    <td>{item.member_id}</td>
-                    <td>{item.member_password}</td>
-                    <td><BiEditAlt className='cursor-pointer' onClick={() => updateMember(item)} /></td>
-                    <td><img src={wl} className='wl-logo' alt="" /></td>
-                  </tr>
-                ))
-              }
-            </tbody>
-          </table>
+          <div className="data_table">
+            <table className="table table-striped oneeight">
+              <thead style={{borderBottom:'1px'}}>
+                <tr>
+                  <th scope="col" className='all-padding'>Index</th>
+                  <th scope="col">Mukhiya Mobile No</th>
+                  <th scope="col">Member ID</th>
+                  <th scope="col">Password</th>
+                  <th scope="col"></th>
+                  <th scope="col"></th>
+                  <th scope="col"></th>
+                </tr>
+              </thead>
+              <tbody>
+                {
+                  allmembers && allmembers.map((item, index) => (
+                    <tr key={index}>
+                      <th scope="row" className='all-padding1'>{item.mukhiya_id}</th>
+                      <td>{item.mukhiya_mobile_no}</td>
+                      <td>{item.member_id}</td>
+                      <td>{item.member_password}</td>
+                      <td><Link to='/fetchdata'><AiFillEye className='cursor-pointer1' /></Link></td>
+                      <td><BiEditAlt className='cursor-pointer' onClick={() => updateMember(item)} /></td>
+                      <td><BsWhatsapp className='wp' /></td>
+                    </tr>
+                  ))
+                }
+              </tbody>
+            </table>
+          </div>
         </div>
 
         {/* --------- Add Data --------------- */}
@@ -182,12 +205,12 @@ const MukhyaMember = () => {
                 <p className='modal-title-name'>Mukhiya Mobile No</p>
                 <input type="text" className='input-tag' onChange={onChangesholiday} name='mukhiya_mobile_no' />
                 <p className='modal-title-name'>Member ID</p>
-                <input type="text" className='input-tag' onChange={onChangesholiday} name='member_id' />
+                <input type="text" value={lastId} readOnly className='input-tag' name='member_id' />
                 <p className='modal-title-name'>Password</p>
                 <input type="password" className='input-tag' onChange={onChangesholiday} name='password' />
               </div>
               <div className="modal-footer">
-                <button onClick={addData} type="submit" className="btn btn-primary">Save changes</button>
+                <button onClick={() => addData(lastId)} type="submit" className="btn btn-primary">Save changes</button>
               </div>
             </div>
           </div>
