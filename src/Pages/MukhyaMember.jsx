@@ -170,8 +170,8 @@ const MukhyaMember = () => {
                   <th scope="col">Member ID</th>
                   <th scope="col">Password</th>
                   <th scope="col"></th>
-                  <th scope="col"></th>
-                  <th scope="col"></th>
+                  {/* <th scope="col"></th>
+                  <th scope="col"></th> */}
                 </tr>
               </thead>
               <tbody>
@@ -182,9 +182,9 @@ const MukhyaMember = () => {
                       <td>{item.mukhiya_mobile_no}</td>
                       <td>{item.member_id}</td>
                       <td>{item.member_password}</td>
-                      <td><Link to='/fetchdata'><AiFillEye className='cursor-pointer1' /></Link></td>
+                      {/* <td><Link to='/fetchdata'><AiFillEye className='cursor-pointer1' /></Link></td> */}
                       <td><BiEditAlt className='cursor-pointer' onClick={() => updateMember(item)} /></td>
-                      <td><BsWhatsapp className='wp' /></td>
+                      {/* <td><BsWhatsapp className='wp' /></td> */}
                     </tr>
                   ))
                 }

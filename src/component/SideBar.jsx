@@ -52,7 +52,7 @@ const SideBar = () => {
               <BsCreditCard2BackFill size={ICON_SIZE} />
               <span>Slider</span>
             </NavLink>
-            <NavLink to="/demo" className="nav-link">
+            {/* <NavLink to="/demo" className="nav-link">
               <RiFilePaperFill size={ICON_SIZE} />
               <span>Result</span>
             </NavLink>
@@ -83,7 +83,7 @@ const SideBar = () => {
             <NavLink to="/demo" className="nav-link">
               <SiGoogleclassroom size={ICON_SIZE} />
               <span>Class</span>
-            </NavLink>
+            </NavLink> */}
             <NavLink onClick={logout} className="logout">
               <MdOutlineExitToApp size={ICON_SIZE} />
               <span>Log Out</span>

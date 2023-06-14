@@ -9,20 +9,23 @@ const FetchData = () => {
             <SideBar />
             <div className="total-rightsde-section">
                 <Navbar />
-                <table className="table table-striped oneeight">
-                    <thead>
-                        <tr>
-                            <th scope="col">Photo</th>
-                            <th scope="col">Mukhiya Name</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Image</td>
-                            <td>Jenish Vekariya</td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div className="inner-form-data">
+                    <label className='title'>Member Id</label>&nbsp;&nbsp;
+                    <label className='discription'>Jenish</label>
+                    <br />
+                    <label className='title'>First Name:</label>&nbsp;&nbsp;
+                    <label className='discription'>Jenish</label>
+                    <br />
+                    <label className='title'>First Name:</label>&nbsp;&nbsp;
+                    <label className='discription'>Jenish</label>
+                    <br />
+                    <label className='title'>First Name:</label>&nbsp;&nbsp;
+                    <label className='discription'>Jenish</label>
+                    <br />
+                    <label className='title'>First Name:</label>&nbsp;&nbsp;
+                    <label className='discription'>Jenish</label>
+                    <br />
+                </div>
             </div>
         </div>
     )
