@@ -120,7 +120,7 @@ const HeadLine = () => {
                                 <textarea className='txt_edit' value={editHeadline.headline} onChange={editChange} name="headline" rows={7} cols={50} />
                             </div>
                             <div className="modal-footer">
-                                <button type="submit" className="btn btn-primary">Save changes</button>
+                                <button type="submit" className="ad_slider_btn2">Save changes</button>
                             </div>
                         </form>
                     </div>

@@ -5,9 +5,9 @@ import Navbar from '../component/Navbar'
 import axios from 'axios'
 import { apiconst } from '../keys'
 import { BiEditAlt } from 'react-icons/bi'
-import { BsWhatsapp } from 'react-icons/bs'
-import { AiFillEye } from 'react-icons/ai'
-import { Link } from 'react-router-dom'
+// import { BsWhatsapp } from 'react-icons/bs'
+// import { AiFillEye } from 'react-icons/ai'
+// import { Link } from 'react-router-dom'
 
 const MukhyaMember = () => {
 
@@ -210,7 +210,7 @@ const MukhyaMember = () => {
                 <input type="password" className='input-tag' onChange={onChangesholiday} name='password' />
               </div>
               <div className="modal-footer">
-                <button onClick={() => addData(lastId)} type="submit" className="btn btn-primary">Save changes</button>
+                <button onClick={() => addData(lastId)} type="submit" className="ad_slider_btn2">Save changes</button>
               </div>
             </div>
           </div>
@@ -235,7 +235,7 @@ const MukhyaMember = () => {
                 <input type="text" className='input-tag' onChange={editChange} name='member_password' value={editMember.member_password} />
               </div>
               <div className="modal-footer">
-                <button onClick={() => handleSubmit()} type="submit" className="btn btn-primary">Save changes</button>
+                <button onClick={() => handleSubmit()} type="submit" className="ad_slider_btn2">Save changes</button>
               </div>
             </div>
           </div>

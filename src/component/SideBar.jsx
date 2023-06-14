@@ -1,22 +1,16 @@
 import React from 'react';
-import {
-  FaThLarge,
-  FaChalkboardTeacher
-} from 'react-icons/fa';
-import {
-  BsPersonLinesFill,
-  BsCreditCard2BackFill
-} from 'react-icons/bs'
+// import { FaThLarge,FaChalkboardTeacher} from 'react-icons/fa';
+// import { RiFilePaperFill } from 'react-icons/ri'
+// import { SlCalender } from 'react-icons/sl'
+// import { TfiDropboxAlt } from 'react-icons/tfi'
+// import { TbBeach } from 'react-icons/tb'
+// import { VscTable } from 'react-icons/vsc'
+// import { ImBooks } from 'react-icons/im'
+// import { SiGoogleclassroom } from "react-icons/si"
+import { BsPersonLinesFill, BsCreditCard2BackFill } from 'react-icons/bs'
 import { IoIosPaper } from 'react-icons/io'
-import { RiFilePaperFill } from 'react-icons/ri'
-import { SlCalender } from 'react-icons/sl'
-import { TfiDropboxAlt } from 'react-icons/tfi'
-import { TbBeach } from 'react-icons/tb'
-import { VscTable } from 'react-icons/vsc'
 import { MdOutlineExitToApp } from 'react-icons/md'
-import { ImBooks } from 'react-icons/im'
 import { NavLink } from "react-router-dom";
-import { SiGoogleclassroom } from "react-icons/si"
 import "./component_css/Sidebar.css";
 import logo from "../../src/assets/logo2.png"
 
@@ -36,10 +30,6 @@ const SideBar = () => {
             <img src={logo} alt="logo" />
           </NavLink>
           <div className="links nav-top">
-            <NavLink to="/demo" className="nav-link">
-              <FaThLarge size={ICON_SIZE} />
-              <span>Dashboard</span>
-            </NavLink>
             <NavLink to="/mukhiya_member" className="nav-link">
               <BsPersonLinesFill size={ICON_SIZE} />
               <span>Mukhya</span>

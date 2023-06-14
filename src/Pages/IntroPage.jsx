@@ -5,8 +5,6 @@ import logo from '../assets/logo.svg'
 const IntroPage = () => {
   const userData = localStorage.getItem("Admin_Token");
 
-
-
   useEffect(() => {
     const timer = setTimeout(() => {
       if (userData) {
@@ -16,7 +14,7 @@ const IntroPage = () => {
       }
     }, 3000);
     return () => clearTimeout(timer);
-  }, []);
+  }, [userData]);
 
   return (
     <>
