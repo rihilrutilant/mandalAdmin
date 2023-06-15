@@ -111,7 +111,7 @@ const Slider = () => {
                     <Navbar />
                     <div className="ad_slider">
                         <button type="button" className="ad_slider_btn" data-bs-toggle="modal" data-bs-target="#Add_model">
-                            Launch demo modal
+                            Add Banner
                         </button>
                     </div>
                     <div className="img_container">
