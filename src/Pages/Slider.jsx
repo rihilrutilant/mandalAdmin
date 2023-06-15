@@ -16,7 +16,7 @@ const Slider = () => {
 
     const fetchSlider = useCallback(() => {
         let config = {
-            method: 'post',
+            method: 'get',
             maxBodyLength: Infinity,
             url: apiconst.fetch_all_slider_imgs,
             headers: {
