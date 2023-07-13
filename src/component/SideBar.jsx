@@ -18,7 +18,7 @@ const ICON_SIZE = 20;
 
 const SideBar = () => {
   const logout = () => {
-    localStorage.clear();
+    sessionStorage.clear();
     window.location.href = '/';
   };
   return (
@@ -26,7 +26,7 @@ const SideBar = () => {
       {/* <div className='body_content'> */}
       <nav className='navbar'>
         <div style={{ display: "block" }}>
-          <NavLink className="logo" to="/">
+          <NavLink className="logo" to="/mukhiya_member">
             <img src={logo} alt="logo" />
           </NavLink>
           <div className="links nav-top">

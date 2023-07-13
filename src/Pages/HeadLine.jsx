@@ -1,31 +1,23 @@
 import React, { useCallback, useEffect, useState, useRef } from 'react'
 import SideBar from "../component/SideBar"
 import Navbar from '../component/Navbar'
-import {apiconst} from '../keys'
+import { apiconst } from '../Globle/keys'
 import axios from 'axios'
 import '../style/Headline.css'
 import { BiEditAlt } from 'react-icons/bi'
+import makeAPIRequest from '../Globle/apiCall'
 
 
 const HeadLine = () => {
-    const [headLine, setheadLine] = useState()
+    const [headLine, setheadLine] = useState("This is headline")
     const [headId, setheadId] = useState()
 
     const getHeadLine = useCallback(() => {
-        let config = {
-            method: 'get',
-            maxBodyLength: Infinity,
-            url: apiconst.fetch_head_line,
-            headers: {
-                'auth-token': localStorage.getItem('Admin_Token')
-            }
-        };
-
-        axios.request(config)
+        makeAPIRequest('get', apiconst.fetch_head_line, null, null, null)
             .then((response) => {
-                const data = response.data.data[0]
-                setheadLine(data.headline)
-                setheadId(data.admin_headline_id)
+                const data = response?.data?.data[0]
+                setheadLine(data?.headline)
+                setheadId(data?.admin_headline_id)
             })
             .catch((error) => {
                 console.log(error);
@@ -54,20 +46,8 @@ const HeadLine = () => {
     const updateHeadLine = (e) => {
         e.preventDefault();
 
-
-        let config = {
-            method: 'put',
-            maxBodyLength: Infinity,
-            url: apiconst.edit_headline + headId,
-            headers: {
-                'auth-token': localStorage.getItem('Admin_Token'),
-                'Content-Type': 'application/json'
-            },
-            data: editHeadline
-        };
-
-        axios.request(config)
-            .then((response) => {
+        makeAPIRequest('put', apiconst.edit_headline + headId, editHeadline, null, null)
+            .then(() => {
                 refClose.current.click()
                 getHeadLine()
             })
@@ -91,7 +71,7 @@ const HeadLine = () => {
             <div className="flex-section">
                 <SideBar />
                 <div className="total-rightsde-section">
-                    <Navbar data={true}/>
+                    <Navbar data={true} />
                     <div className="headline">
                         <div className="card edit_box">
                             <div className="card-body">

@@ -9,7 +9,7 @@ import PageNotFound from "./Pages/PageNotFound";
 import FetchData from "./Pages/FetchData";
 
 function App() {
-  const userData = localStorage.getItem("Admin_Token");
+  const userData = sessionStorage.getItem("Admin_Token");
 
   return (
     <>

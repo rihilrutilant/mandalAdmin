@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
-import { apiconst } from '../keys'
-import axios from 'axios'
+import { apiconst } from '../Globle/keys'
 import logo from '../assets/logo.svg'
 import '../style/AdminLogin.css'
+import makeAPIRequest from '../Globle/apiCall'
 
 const AdminLogin = () => {
 
-  const userData = localStorage.getItem("Admin_Token");
+  const userData = sessionStorage.getItem("Admin_Token");
 
   if (userData) {
     window.location.href = "/mukhiya_member"
@@ -20,26 +20,15 @@ const AdminLogin = () => {
   const submit_admin_data = async (e) => {
     e.preventDefault()
 
-    let config = {
-      method: 'post',
-      maxBodyLength: Infinity,
-      url: apiconst.admin_login,
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      data: admin_info
-    };
-
-    axios.request(config)
+    makeAPIRequest('post', apiconst.admin_login, admin_info, null, null)
       .then((response) => {
         const data = response.data;
         if (data.status === 1) {
-          const A_token = data.data.auth_token;
-          localStorage.setItem("Admin_Token", A_token)
+          sessionStorage.setItem("Admin_Token", data.data.auth_token)
           window.location.href = '/mukhiya_member';
         }
       })
-      .catch((error) => {
+      .catch(() => {
         alert('Please Enter Valid Data')
       });
   }

@@ -3,7 +3,7 @@ import '../style/IntroPage.css'
 import logo from '../assets/logo.svg'
 
 const IntroPage = () => {
-  const userData = localStorage.getItem("Admin_Token");
+  const userData = sessionStorage.getItem("Admin_Token");
 
   useEffect(() => {
     const timer = setTimeout(() => {

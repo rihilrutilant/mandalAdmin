@@ -3,8 +3,9 @@ import '../style/MukhyaMember.css'
 import SideBar from "../component/SideBar"
 import Navbar from '../component/Navbar'
 import axios from 'axios'
-import { apiconst } from '../keys'
+import { apiconst } from '../Globle/keys'
 import { BiEditAlt } from 'react-icons/bi'
+import makeAPIRequest from '../Globle/apiCall'
 // import { BsWhatsapp } from 'react-icons/bs'
 // import { AiFillEye } from 'react-icons/ai'
 // import { Link } from 'react-router-dom'
@@ -12,21 +13,13 @@ import { BiEditAlt } from 'react-icons/bi'
 const MukhyaMember = () => {
 
   //---------------------fetch all members------------------
-  const [allmembers, setallmembers] = useState()
+  const [allmembers, setallmembers] = useState([])
+  console.log(allmembers);
 
   const [lastId, setlastId] = useState()
 
   const fetchallmembers = useCallback(() => {
-    let config = {
-      method: 'get',
-      maxBodyLength: Infinity,
-      url: apiconst.fatch_all_members,
-      headers: {
-        'auth-token': localStorage.getItem('Admin_Token')
-      }
-    };
-
-    axios.request(config)
+    makeAPIRequest('get', apiconst.fatch_all_members, null, null, null)
       .then(async (response) => {
         let data = response.data;
         if (data.length > 0) {
@@ -68,17 +61,8 @@ const MukhyaMember = () => {
   const addData = (id) => {
     const { mukhiya_mobile_no, password } = allData
     const member_id = id
-    var config = {
-      method: 'post',
-      maxBodyLength: Infinity,
-      url: apiconst.create_mukhya_member,
-      headers: {
-        'auth-token': localStorage.getItem('Admin_Token'),
-        'Content-Type': 'application/json'
-      },
-      data: JSON.stringify({ mukhiya_mobile_no, member_id, password })
-    };
-    axios(config)
+    let data = JSON.stringify({ mukhiya_mobile_no, member_id, password })
+    makeAPIRequest('post', apiconst.create_mukhya_member, data, null, null)
       .then(function (response) {
         refClose1.current.click()
         fetchallmembers()
@@ -120,26 +104,16 @@ const MukhyaMember = () => {
 
   const updateAllMember = (id, mukhiya_mobile_no, member_password) => {
 
-    let config = {
-      method: 'put',
-      maxBodyLength: Infinity,
-      url: apiconst.edit_mukhya_member + id,
-      headers: {
-        'auth-token': localStorage.getItem('Admin_Token'),
-        'Content-Type': 'application/json'
-      },
-      data: JSON.stringify({
-        "mukhiya_mobile_no": mukhiya_mobile_no,
-        "member_password": member_password
-      })
-    };
-
-    axios.request(config)
-      .then((response) => {
+    const data = {
+      mukhiya_mobile_no: mukhiya_mobile_no,
+      member_password: member_password
+    }
+    makeAPIRequest('put', apiconst.edit_mukhya_member, data, null, null)
+      .then(() => {
         refClose.current.click()
         fetchallmembers()
       })
-      .catch((error) => {
+      .catch(() => {
         alert("There is something wrong entry")
       });
   }
@@ -163,7 +137,7 @@ const MukhyaMember = () => {
           </div>
           <div className="data_table">
             <table className="table table-striped oneeight">
-              <thead style={{borderBottom:'1px'}}>
+              <thead style={{ borderBottom: '1px' }}>
                 <tr>
                   <th scope="col" className='all-padding'>Index</th>
                   <th scope="col">Mukhiya Mobile No</th>
@@ -176,12 +150,12 @@ const MukhyaMember = () => {
               </thead>
               <tbody>
                 {
-                  allmembers && allmembers.map((item, index) => (
+                  allmembers?.map((item, index) => (
                     <tr key={index}>
-                      <th scope="row" className='all-padding1'>{item.mukhiya_id}</th>
-                      <td>{item.mukhiya_mobile_no}</td>
-                      <td>{item.member_id}</td>
-                      <td>{item.member_password}</td>
+                      <th scope="row" className='all-padding1'>{item?.mukhiya_id}</th>
+                      <td>{item?.mukhiya_mobile_no}</td>
+                      <td>{item?.member_id}</td>
+                      <td>{item?.member_password}</td>
                       {/* <td><Link to='/fetchdata'><AiFillEye className='cursor-pointer1' /></Link></td> */}
                       <td><BiEditAlt className='cursor-pointer' onClick={() => updateMember(item)} /></td>
                       {/* <td><BsWhatsapp className='wp' /></td> */}

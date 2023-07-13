@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react'
 import SideBar from "../component/SideBar"
 import Navbar from '../component/Navbar'
 import axios from 'axios'
-import { apiconst, BASE_URL } from '../keys'
+import { apiconst, BASE_URL } from '../Globle/keys'
 import '../style/Slider.css'
 import { MdDelete } from 'react-icons/md'
 import { Link } from 'react-router-dom'
@@ -20,7 +20,7 @@ const Slider = () => {
             maxBodyLength: Infinity,
             url: apiconst.fetch_all_slider_imgs,
             headers: {
-                'auth-token': localStorage.getItem('Admin_Token')
+                'auth-token': sessionStorage.getItem('Admin_Token')
             }
         };
 
@@ -53,7 +53,7 @@ const Slider = () => {
                 maxBodyLength: Infinity,
                 url: apiconst.add_slider,
                 headers: {
-                    'auth-token': localStorage.getItem('Admin_Token')
+                    'auth-token': sessionStorage.getItem('Admin_Token')
                 },
                 data: data
             };
@@ -82,9 +82,9 @@ const Slider = () => {
         let config = {
             method: 'delete',
             maxBodyLength: Infinity,
-            url: apiconst.delete_slider+id,
+            url: apiconst.delete_slider + id,
             headers: {
-                'auth-token': localStorage.getItem('Admin_Token')
+                'auth-token': sessionStorage.getItem('Admin_Token')
             }
         };
 
@@ -143,7 +143,7 @@ const Slider = () => {
                         </div>
                         <form>
                             <div className="modal-body">
-                                <input type="file" name="image" id="sliders" required onChange={slider_imgs} accept="image/*"/>
+                                <input type="file" name="image" id="sliders" required onChange={slider_imgs} accept="image/*" />
                             </div>
                             <div className="modal-footer">
                                 <button type="submit" onClick={add_banner} className="ad_slider_btn2">Save changes</button>

@@ -1,19 +1,19 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import './component_css/Navbar.css'
-import {apiconst} from '../keys.js'
+import { apiconst } from '../Globle/keys.js'
 import axios from 'axios'
 
 const Navbar = (props) => {
 
   const [headLine, setheadLine] = useState()
 
-  const getHeadLine =  useCallback(() => {
+  const getHeadLine = useCallback(() => {
     let config = {
       method: 'get',
       maxBodyLength: Infinity,
       url: apiconst.fetch_head_line,
       headers: {
-        'auth-token': localStorage.getItem('Admin_Token')
+        'auth-token': sessionStorage.getItem('Admin_Token')
       }
     };
 
@@ -25,10 +25,10 @@ const Navbar = (props) => {
       .catch((error) => {
         console.log(error);
       });
-  },[])
+  }, [])
 
 
-  if(props.data === true){
+  if (props.data === true) {
     getHeadLine()
   }
 
