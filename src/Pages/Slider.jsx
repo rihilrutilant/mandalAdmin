@@ -6,6 +6,7 @@ import { apiconst, BASE_URL } from '../Globle/keys'
 import '../style/Slider.css'
 import { MdDelete } from 'react-icons/md'
 import { Link } from 'react-router-dom'
+import makeAPIRequest from '../Globle/apiCall'
 
 const Slider = () => {
 
@@ -15,18 +16,9 @@ const Slider = () => {
     const [setsliderimg, setsetsliderimg] = useState()
 
     const fetchSlider = useCallback(() => {
-        let config = {
-            method: 'get',
-            maxBodyLength: Infinity,
-            url: apiconst.fetch_all_slider_imgs,
-            headers: {
-                'auth-token': sessionStorage.getItem('Admin_Token')
-            }
-        };
-
-        axios.request(config)
+        makeAPIRequest('get', apiconst.fetch_all_slider_imgs, null, null, null)
             .then((response) => {
-                const data = response.data;
+                const data = response.data.data;
                 setsetsliderimg(data);
             })
             .catch((error) => {
@@ -118,7 +110,7 @@ const Slider = () => {
                         {
                             setsliderimg && setsliderimg.map((item, key) => (
                                 <div key={key} className="imgs_container">
-                                    <img src={`${BASE_URL}/slider_image/${item.slider_photo}`} alt="slider" className='sub_imgs' />
+                                    <img src={apiconst.getAnyImages+item.slider_photo} alt="slider" className='sub_imgs' />
                                     <div className="overlay"></div>
                                     <div className="button">
                                         <Link to="#" onClick={() => deleteSlider(item.slider_id)}>

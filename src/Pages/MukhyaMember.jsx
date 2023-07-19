@@ -14,14 +14,13 @@ const MukhyaMember = () => {
 
   //---------------------fetch all members------------------
   const [allmembers, setallmembers] = useState([])
-  console.log(allmembers);
 
   const [lastId, setlastId] = useState()
 
   const fetchallmembers = useCallback(() => {
     makeAPIRequest('get', apiconst.fatch_all_members, null, null, null)
       .then(async (response) => {
-        let data = response.data;
+        let data = response.data.data;
         if (data.length > 0) {
           for (let index = data.length - 1; index < data.length; index++) {
             const element = data[index].member_id;
