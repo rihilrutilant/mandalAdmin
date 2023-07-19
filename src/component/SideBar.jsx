@@ -44,11 +44,11 @@ const SideBar = () => {
             </NavLink>
             <NavLink to="/demo" className="nav-link">
               <RiFilePaperFill size={ICON_SIZE} />
-              <span>News</span>
+              <span>Notice</span>
             </NavLink>
             <NavLink to="/demo" className="nav-link">
               <FaChalkboardTeacher size={ICON_SIZE} />
-              <span></span>
+              <span>Commity</span>
             </NavLink>
             <NavLink to="/demo" className="nav-link">
               <SlCalender size={ICON_SIZE} />
@@ -56,23 +56,23 @@ const SideBar = () => {
             </NavLink>
             <NavLink to="/demo" className="nav-link">
               <TfiDropboxAlt size={ICON_SIZE} />
-              <span>Complain Box</span>
+              <span>Motivation</span>
             </NavLink>
             <NavLink to="/demo" className="nav-link">
               <TbBeach size={ICON_SIZE} />
-              <span>Holidays</span>
+              <span>News</span>
             </NavLink>
             <NavLink to="/demo" className="nav-link">
               <VscTable size={ICON_SIZE} />
-              <span>Time Table</span>
+              <span>Business</span>
             </NavLink>
             <NavLink to="/demo" className="nav-link">
               <ImBooks size={ICON_SIZE} />
-              <span>Subject</span>
+              <span>Advertisement</span>
             </NavLink>
             <NavLink to="/demo" className="nav-link">
               <SiGoogleclassroom size={ICON_SIZE} />
-              <span>Class</span>
+              <span>Prayojak</span>
             </NavLink>
             <NavLink onClick={logout} className="logout">
               <MdOutlineExitToApp size={ICON_SIZE} />
