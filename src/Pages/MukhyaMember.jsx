@@ -2,13 +2,12 @@ import React, { useCallback, useEffect, useRef, useState } from 'react'
 import '../style/MukhyaMember.css'
 import SideBar from "../component/SideBar"
 import Navbar from '../component/Navbar'
-import axios from 'axios'
 import { apiconst } from '../Globle/keys'
 import { BiEditAlt } from 'react-icons/bi'
 import makeAPIRequest from '../Globle/apiCall'
-// import { BsWhatsapp } from 'react-icons/bs'
-// import { AiFillEye } from 'react-icons/ai'
-// import { Link } from 'react-router-dom'
+import { BsWhatsapp } from 'react-icons/bs'
+import { AiFillEye } from 'react-icons/ai'
+import { Link } from 'react-router-dom'
 
 const MukhyaMember = () => {
 
@@ -60,7 +59,11 @@ const MukhyaMember = () => {
   const addData = (id) => {
     const { mukhiya_mobile_no, password } = allData
     const member_id = id
-    let data = JSON.stringify({ mukhiya_mobile_no, member_id, password })
+    let data = {
+      mukhiya_mobile_no,
+      member_id,
+      password
+    }
     makeAPIRequest('post', apiconst.create_mukhya_member, data, null, null)
       .then(function (response) {
         refClose1.current.click()
@@ -70,6 +73,7 @@ const MukhyaMember = () => {
         alert("Please Enter Valid Data")
       });
   }
+
   const onChangesholiday = (e) => {
     setallData(() => ({ ...allData, [e.target.name]: e.target.value }))
   }
@@ -107,7 +111,7 @@ const MukhyaMember = () => {
       mukhiya_mobile_no: mukhiya_mobile_no,
       member_password: member_password
     }
-    makeAPIRequest('put', apiconst.edit_mukhya_member, data, null, null)
+    makeAPIRequest('put', apiconst.edit_mukhya_member + id, data, null, null)
       .then(() => {
         refClose.current.click()
         fetchallmembers()
@@ -151,13 +155,13 @@ const MukhyaMember = () => {
                 {
                   allmembers?.map((item, index) => (
                     <tr key={index}>
-                      <th scope="row" className='all-padding1'>{item?.mukhiya_id}</th>
+                      <th scope="row" className='all-padding1'>{index + 1}</th>
                       <td>{item?.mukhiya_mobile_no}</td>
                       <td>{item?.member_id}</td>
                       <td>{item?.member_password}</td>
-                      {/* <td><Link to='/fetchdata'><AiFillEye className='cursor-pointer1' /></Link></td> */}
+                      <td><Link to='/fetchdata'><AiFillEye className='cursor-pointer1' /></Link></td>
                       <td><BiEditAlt className='cursor-pointer' onClick={() => updateMember(item)} /></td>
-                      {/* <td><BsWhatsapp className='wp' /></td> */}
+                      <td><BsWhatsapp className='wp' /></td>
                     </tr>
                   ))
                 }

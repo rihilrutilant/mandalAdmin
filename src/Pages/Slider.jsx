@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react'
 import SideBar from "../component/SideBar"
 import Navbar from '../component/Navbar'
 import axios from 'axios'
-import { apiconst, BASE_URL } from '../Globle/keys'
+import { apiconst } from '../Globle/keys'
 import '../style/Slider.css'
 import { MdDelete } from 'react-icons/md'
 import { Link } from 'react-router-dom'

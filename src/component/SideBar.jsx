@@ -1,12 +1,12 @@
 import React from 'react';
-// import { FaThLarge,FaChalkboardTeacher} from 'react-icons/fa';
-// import { RiFilePaperFill } from 'react-icons/ri'
-// import { SlCalender } from 'react-icons/sl'
-// import { TfiDropboxAlt } from 'react-icons/tfi'
-// import { TbBeach } from 'react-icons/tb'
-// import { VscTable } from 'react-icons/vsc'
-// import { ImBooks } from 'react-icons/im'
-// import { SiGoogleclassroom } from "react-icons/si"
+import { FaThLarge,FaChalkboardTeacher} from 'react-icons/fa';
+import { RiFilePaperFill } from 'react-icons/ri'
+import { SlCalender } from 'react-icons/sl'
+import { TfiDropboxAlt } from 'react-icons/tfi'
+import { TbBeach } from 'react-icons/tb'
+import { VscTable } from 'react-icons/vsc'
+import { ImBooks } from 'react-icons/im'
+import { SiGoogleclassroom } from "react-icons/si"
 import { BsPersonLinesFill, BsCreditCard2BackFill } from 'react-icons/bs'
 import { IoIosPaper } from 'react-icons/io'
 import { MdOutlineExitToApp } from 'react-icons/md'
@@ -42,13 +42,13 @@ const SideBar = () => {
               <BsCreditCard2BackFill size={ICON_SIZE} />
               <span>Slider</span>
             </NavLink>
-            {/* <NavLink to="/demo" className="nav-link">
+            <NavLink to="/demo" className="nav-link">
               <RiFilePaperFill size={ICON_SIZE} />
-              <span>Result</span>
+              <span>News</span>
             </NavLink>
             <NavLink to="/demo" className="nav-link">
               <FaChalkboardTeacher size={ICON_SIZE} />
-              <span>Notice Board</span>
+              <span></span>
             </NavLink>
             <NavLink to="/demo" className="nav-link">
               <SlCalender size={ICON_SIZE} />
@@ -73,7 +73,7 @@ const SideBar = () => {
             <NavLink to="/demo" className="nav-link">
               <SiGoogleclassroom size={ICON_SIZE} />
               <span>Class</span>
-            </NavLink> */}
+            </NavLink>
             <NavLink onClick={logout} className="logout">
               <MdOutlineExitToApp size={ICON_SIZE} />
               <span>Log Out</span>
