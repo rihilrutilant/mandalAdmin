@@ -147,6 +147,8 @@ const MukhyaMember = () => {
                   <th scope="col">Member ID</th>
                   <th scope="col">Password</th>
                   <th scope="col"></th>
+                  <th scope="col"></th>
+                  <th scope="col"></th>
                   {/* <th scope="col"></th>
                   <th scope="col"></th> */}
                 </tr>

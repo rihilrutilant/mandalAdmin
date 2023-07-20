@@ -2,10 +2,38 @@
     font-size: 24px;
     font-weight: 600;
 }
-.discription{
+
+.discription {
     font-size: 20px;
 }
 
-.inner-form-data{
-    padding: 70px;
+.inner-form-data {
+    padding: 70px 20px;
+}
+
+.first-line {
+    display: flex;
+    justify-content: space-between;
+}
+
+.sub-member-data {
+    margin-top: 30px;
+}
+
+.tbody-tr {
+    cursor: pointer;
+}
+
+.inner-photo {
+    width: 100%;
+    max-width: 65px;
+    height: 65px;
+    border-radius: 30px;
+}
+
+.inner-photo-modal {
+    width: 100%;
+    max-width: 95px;
+    height: 65px;
+    border-radius: 30px;
 }
