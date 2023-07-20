@@ -9,6 +9,13 @@ import PageNotFound from "./Pages/PageNotFound";
 import FetchData from "./Pages/FetchData";
 import Notice from "./Pages/Notice";
 import News from "./Pages/News";
+import Advertisement from "./Pages/Advertisement";
+import Business from "./Pages/Business";
+import Commity from "./Pages/Commity";
+import Event from "./Pages/Event";
+import Motivation from "./Pages/Motivation";
+import Prayojak from "./Pages/Prayojak";
+
 
 function App() {
   const userData = sessionStorage.getItem("Admin_Token");
@@ -32,7 +39,13 @@ function App() {
               <Route path="/slider" element={<Slider />} />
               <Route path="/fetchdata" element={<FetchData />} />
               <Route path="/notice" element={<Notice />} />
-              <Route path="/news" element={<News />} />
+                <Route path="/news" element={<News />} />
+                <Route path="/advertisement" element={<Advertisement />} />
+                <Route path="/business" element={<Business />} />
+                <Route path="/commity" element={<Commity />} />
+                <Route path="/event" element={<Event />} />
+                <Route path="/motivation" element={<Motivation />} />
+                <Route path="/prayojak" element={<Prayojak />} />
             </>
           )}
           <Route path="*" element={<PageNotFound />} />
