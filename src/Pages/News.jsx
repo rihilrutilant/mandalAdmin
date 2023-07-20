@@ -7,19 +7,18 @@ import { apiconst } from '../Globle/keys'
 import { BiEditAlt } from 'react-icons/bi'
 import makeAPIRequest from '../Globle/apiCall'
 
-
-const Notice = () => {
+const News = () => {
 
   //---------------------fetch all members------------------
-  const [notice, setnotice] = useState([])
+  const [news, setnews] = useState([])
 
   const [lastId, setlastId] = useState()
 
-  const fetchallmembers = useCallback(() => {
+  const fetchnews = useCallback(() => {
     makeAPIRequest('get', apiconst.fatch_all_members, null, null, null)
       .then(async (response) => {
         let data = response.data.data;
-        setnotice(data)
+        setnews(data)
       })
       .catch((error) => {
         console.log(error);
@@ -27,8 +26,8 @@ const Notice = () => {
   }, [])
 
   useEffect(() => {
-    fetchallmembers();
-  }, [fetchallmembers])
+    fetchnews();
+  }, [fetchnews])
 
 
   //---------------------fetch all members------------------
@@ -37,8 +36,7 @@ const Notice = () => {
   // ---------------- Add member--------------------
   const [allData, setallData] = useState({
     photo: "",
-    notice: "",
-    year:"",
+    news: ""
   })
 
   const refClose = useRef(null);
@@ -46,17 +44,16 @@ const Notice = () => {
 
 
   const addData = (id) => {
-    const { photo, notice , year } = allData
+    const { photo, news } = allData
     const member_id = id
     let data = {
       photo,
-      notice,
-      year
+      news,
     }
     makeAPIRequest('post', apiconst.create_mukhya_member, data, null, null)
       .then(function (response) {
         refClose1.current.click()
-        fetchallmembers()
+        fetchnews()
       })
       .catch(function (error) {
         alert("Please Enter Valid Data")
@@ -71,8 +68,7 @@ const Notice = () => {
   // ---------------- Edit member--------------------
   const [editMember, setEditMember] = useState({
     photo: "",
-    notice: "",
-    year: ""
+    news: "",
   })
 
   const ref = useRef(null);
@@ -81,30 +77,27 @@ const Notice = () => {
     ref.current.click();
     setEditMember({
       photo: currentRest.photo,
-      notice: currentRest.notice,
-      year: currentRest.year
+      news: currentRest.news,
     })
   }
 
   const handleSubmit = (e) => {
     updateAllMember(
       editMember.photo,
-      editMember.notice,
-      editMember.year,
+      editMember.news,
     )
   }
 
-  const updateAllMember = (photo,Notice, Year) => {
+  const updateAllMember = (photo,news) => {
 
     const data = {
       photo:photo,
-      Notice:Notice,
-      Year: Year
+      news:news,
     }
     makeAPIRequest('put', apiconst.edit_mukhya_member , data, null, null)
       .then(() => {
         refClose.current.click()
-        fetchallmembers()
+        fetchnews()
       })
       .catch(() => {
         alert("There is something wrong entry")
@@ -134,8 +127,8 @@ const Notice = () => {
                 <tr>
                   <th scope="col" className='all-padding'>Index</th>
                   <th scope="col">Images</th>
-                  <th scope="col">Notice</th>
-                  <th scope="col">year</th>
+                  <th scope="col">News</th>
+                  <th scope="col"></th>
                   <th scope="col"></th>
                   <th scope="col"></th>
                   <th scope="col"></th>
@@ -145,7 +138,7 @@ const Notice = () => {
               </thead>
               <tbody>
                 {
-                  notice?.map((item, index) => (
+                  news?.map((item, index) => (
                     <tr key={index}>
                       <th scope="row" className='all-padding1'>{index + 1}</th>
                       <td>{item?.mukhiya_mobile_no}</td>
@@ -161,20 +154,18 @@ const Notice = () => {
         </div>
 
         {/* --------- Add Data --------------- */}
-        <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabelnews" aria-hidden="true">
           <div className="modal-dialog">
             <div className="modal-content">
               <div className="modal-header">
-                <h4 className="modal-title" id="exampleModalLabel">Add New Data</h4>
+                <h4 className="modal-title" id="exampleModalLabelnews">Add New Data</h4>
                 <button type="button" className="btn-close" ref={refClose1} data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div className="modal-body">
                 <p className='modal-title-name'>Images</p>
-                <input type="file" className='input-tag' onChange={onChangesholiday} name='images' />
-                <p className='modal-title-name'>Notice</p>
-                <input type="text" className='input-tag' name='notice' />
-                <p className='modal-title-name'>Year</p>
-                <input type="password" className='input-tag' onChange={onChangesholiday} name='year' />
+                <input type="file" className='input-tag' onChange={onChangesholiday} name='photo' />
+                <p className='modal-title-name'>News</p>
+                <input type="text" value={lastId} readOnly className='input-tag' name='news' />
               </div>
               <div className="modal-footer">
                 <button onClick={() => addData(lastId)} type="submit" className="ad_slider_btn2">Save changes</button>
@@ -185,10 +176,10 @@ const Notice = () => {
         {/* --------- Add Data --------------- */}
 
         {/* --------- Update Data --------------- */}
-        <button type="button" style={{ display: 'none' }} ref={ref} className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalnotice">
+        <button type="button" style={{ display: 'none' }} ref={ref} className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalnews">
           Launch demo modal
         </button>
-        <div className="modal fade" id="exampleModalnotice" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div className="modal fade" id="exampleModalnews" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div className="modal-dialog">
             <div className="modal-content">
               <div className="modal-header">
@@ -196,10 +187,10 @@ const Notice = () => {
                 <button type="button" className="btn-close" ref={refClose} data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div className="modal-body">
-                <p className='modal-title-name'>Mukhiya Mobile No</p>
-                <input type="text" className='input-tag' onChange={editChange} name='mukhiya_mobile_no' value={editMember.mukhiya_mobile_no} />
-                <p className='modal-title-name'>Password</p>
-                <input type="text" className='input-tag' onChange={editChange} name='member_password' value={editMember.member_password} />
+                <p className='modal-title-name'>images</p>
+                <input type="text" className='input-tag' onChange={editChange} name='photo' value={editMember.mukhiya_mobile_no} />
+                <p className='modal-title-name'>News</p>
+                <input type="text" className='input-tag' onChange={editChange} name='news' value={editMember.member_password} />
               </div>
               <div className="modal-footer">
                 <button onClick={() => handleSubmit()} type="submit" className="ad_slider_btn2">Save changes</button>
@@ -214,4 +205,4 @@ const Notice = () => {
   )
 }
 
-export default Notice
+export default News

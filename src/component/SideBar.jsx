@@ -42,7 +42,7 @@ const SideBar = () => {
               <BsCreditCard2BackFill size={ICON_SIZE} />
               <span>Slider</span>
             </NavLink>
-            <NavLink to="/noties" className="nav-link">
+            <NavLink to="/notice" className="nav-link">
               <RiFilePaperFill size={ICON_SIZE} />
               <span>Notice</span>
             </NavLink>
@@ -58,7 +58,7 @@ const SideBar = () => {
               <TfiDropboxAlt size={ICON_SIZE} />
               <span>Motivation</span>
             </NavLink>
-            <NavLink to="/demo" className="nav-link">
+            <NavLink to="/news" className="nav-link">
               <i class="fa-solid fa-newspaper"></i>
               <span>News</span>
             </NavLink>

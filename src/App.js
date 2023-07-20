@@ -8,6 +8,7 @@ import Slider from "./Pages/Slider";
 import PageNotFound from "./Pages/PageNotFound";
 import FetchData from "./Pages/FetchData";
 import Notice from "./Pages/Notice";
+import News from "./Pages/News";
 
 function App() {
   const userData = sessionStorage.getItem("Admin_Token");
@@ -30,7 +31,8 @@ function App() {
               <Route path="/headline" element={<HeadLine />} />
               <Route path="/slider" element={<Slider />} />
               <Route path="/fetchdata" element={<FetchData />} />
-              <Route path="/noties" element={<Notice />} />
+              <Route path="/notice" element={<Notice />} />
+              <Route path="/news" element={<News />} />
             </>
           )}
           <Route path="*" element={<PageNotFound />} />
