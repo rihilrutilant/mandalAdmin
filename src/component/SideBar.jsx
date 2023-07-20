@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaThLarge,FaChalkboardTeacher} from 'react-icons/fa';
+import { FaThLarge, FaChalkboardTeacher } from 'react-icons/fa';
 import { RiFilePaperFill } from 'react-icons/ri'
 import { SlCalender } from 'react-icons/sl'
 import { TfiDropboxAlt } from 'react-icons/tfi'
@@ -42,7 +42,7 @@ const SideBar = () => {
               <BsCreditCard2BackFill size={ICON_SIZE} />
               <span>Slider</span>
             </NavLink>
-            <NavLink to="/demo" className="nav-link">
+            <NavLink to="/noties" className="nav-link">
               <RiFilePaperFill size={ICON_SIZE} />
               <span>Notice</span>
             </NavLink>
@@ -59,7 +59,7 @@ const SideBar = () => {
               <span>Motivation</span>
             </NavLink>
             <NavLink to="/demo" className="nav-link">
-              <TbBeach size={ICON_SIZE} />
+              <i class="fa-solid fa-newspaper"></i>
               <span>News</span>
             </NavLink>
             <NavLink to="/demo" className="nav-link">
