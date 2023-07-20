@@ -46,15 +46,15 @@ const SideBar = () => {
               <RiFilePaperFill size={ICON_SIZE} />
               <span>Notice</span>
             </NavLink>
-            <NavLink to="/demo" className="nav-link">
+            <NavLink to="/commity" className="nav-link">
               <FaChalkboardTeacher size={ICON_SIZE} />
               <span>Commity</span>
             </NavLink>
-            <NavLink to="/demo" className="nav-link">
+            <NavLink to="/event" className="nav-link">
               <SlCalender size={ICON_SIZE} />
               <span>Events</span>
             </NavLink>
-            <NavLink to="/demo" className="nav-link">
+            <NavLink to="/motivation" className="nav-link">
               <TfiDropboxAlt size={ICON_SIZE} />
               <span>Motivation</span>
             </NavLink>
@@ -62,15 +62,15 @@ const SideBar = () => {
               <i class="fa-solid fa-newspaper"></i>
               <span>News</span>
             </NavLink>
-            <NavLink to="/demo" className="nav-link">
+            <NavLink to="/business" className="nav-link">
               <VscTable size={ICON_SIZE} />
               <span>Business</span>
             </NavLink>
-            <NavLink to="/demo" className="nav-link">
+            <NavLink to="/advertisement" className="nav-link">
               <ImBooks size={ICON_SIZE} />
               <span>Advertisement</span>
             </NavLink>
-            <NavLink to="/demo" className="nav-link">
+            <NavLink to="/prayojak" className="nav-link">
               <SiGoogleclassroom size={ICON_SIZE} />
               <span>Prayojak</span>
             </NavLink>
