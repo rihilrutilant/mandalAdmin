@@ -84,3 +84,8 @@
     color: #BF0000;
     margin-top: 20px;
 }
+
+.model_input {
+    margin: 10px auto;
+    width: 100%;
+}

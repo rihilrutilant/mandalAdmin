@@ -1,4 +1,4 @@
-const BASE_URL = "http://localhost:25060"
+const BASE_URL = "http://localhost:5000"
 
 
 const apiconst = {
@@ -14,6 +14,29 @@ const apiconst = {
     remove_member: `${BASE_URL}/api/slider/remove_member/`,
     delete_slider: `${BASE_URL}/api/slider/delete_slider_img/`,
     getAnyImages: `${BASE_URL}/api/image?filename=`,
+
+    getPrayojak: `${BASE_URL}/api/prayojak/get`,
+    addprayojak: `${BASE_URL}/api/prayojak/create`,
+    deletePrayojk: `${BASE_URL}/api/prayojak/remove/`,
+    getDataShree: `${BASE_URL}/api/datashree/get`,
+    addDatashree: `${BASE_URL}/api/datashree/create`,
+    deleteDataShree: `${BASE_URL}/api/datashree/remove/`,
+    // Advertisement
+    getAdvertisementData: `${BASE_URL}/api/advertisement/get`,
+    deleteAdvertisementData: `${BASE_URL}/api/advertisement/remove/`,
+    createAdvertisementData: `${BASE_URL}/api/advertisement/create`,
+    // Business
+    getBusinessData: `${BASE_URL}/api/business/get`,
+    deleteBusinessData: `${BASE_URL}/api/business/remove/`,
+    // Event
+    getEventData: `${BASE_URL}/api/event/get`,
+    createEventData: `${BASE_URL}/api/event/add`,
+    updateEventImage: `${BASE_URL}/api/event/photo`,
+    deleteEventData: `${BASE_URL}/api/event/remove/`,
+
+    getAllMotivation: `${BASE_URL}/api/motivation/get`,
+    createMotivation: `${BASE_URL}/api/motivation/create`,
+    remove_Motivation: `${BASE_URL}/api/motivation/remove/`,
 }
 
 export { apiconst, BASE_URL }

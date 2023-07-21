@@ -1,8 +1,14 @@
-import React, { useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import SideBar from '../component/SideBar'
 import Navbar from '../component/Navbar'
+import makeAPIRequest from '../Globle/apiCall'
+import { apiconst } from '../Globle/keys'
+import { AiFillDelete } from 'react-icons/ai'
 
 function DataShree() {
+
+    // --------------------- Add dataShree ---------------------
+    const refClose = useRef(null)
     const [image, setImage] = useState(null)
     const [datashreeInfo, setDatashreeInfo] = useState({
         name: "",
@@ -16,12 +22,64 @@ function DataShree() {
     const datashree = (e) => {
         setDatashreeInfo({ ...datashreeInfo, [e.target.name]: e.target.value })
     }
-    const formSubmit = (e) => {
+
+    const addDataShree = (e) => {
         e.preventDefault()
         const formData = new FormData()
         formData.append('photo', image)
-        formData.append('data', datashreeInfo)
+        formData.append('name', datashreeInfo.name)
+        formData.append('village', datashreeInfo.village)
+        formData.append('dataShreeType', datashreeInfo.dataShreeType)
+        formData.append('numberOfsnehMilan', datashreeInfo.numberOfsnehMilan)
+        formData.append('type', datashreeInfo.type)
+        formData.append('member', datashreeInfo.member)
+        formData.append('year', datashreeInfo.year)
+
+        makeAPIRequest('post', apiconst.addDatashree, formData, null, null)
+            .then((res) => {
+                if (res?.data?.dataShreedetail) {
+                    refClose.current.click()
+                    getData()
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+            })
     }
+    // --------------------- Add dataShree ---------------------
+
+
+    // --------------------- delete dataShree -----------------------
+    const deleteDataShree = (id) => {
+        makeAPIRequest('delete', apiconst.deleteDataShree + id, null, null, null)
+            .then((res) => {
+                if (res?.data?.message) {
+                    getData()
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+    }
+    // --------------------- delete dataShree -----------------------
+
+    // ---------------------- get dataShree ----------------------
+    const [getDataShresData, setGetDataShresData] = useState([])
+    const getData = useCallback(() => {
+        makeAPIRequest('get', apiconst.getDataShree, null, null, null)
+            .then((res) => {
+                setGetDataShresData(res?.data?.dataShreedetail)
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+    }, [],)
+    // ---------------------- get dataShree ----------------------
+
+    useEffect(() => {
+        getData()
+    }, [getData])
+
     return (
         <div>
             <div className="flex-section">
@@ -35,7 +93,7 @@ function DataShree() {
                     </div>
                     <div className="inner-form-data">
                         <div className="sub-member-data">
-                            <table className="table table-striped">
+                            <table class="table table-striped">
                                 <thead>
                                     <tr>
                                         <th scope="col">Photo</th>
@@ -50,17 +108,21 @@ function DataShree() {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr className='tbody-tr'>
-                                        <th scope="row"><img src={require("../assets/photo1.jpeg")} alt="photo" className='inner-photo' /></th>
-                                        <td>goyani avi dilipBhai</td>
-                                        <td>visnagar</td>
-                                        <td>comunity center</td>
-                                        <td>6th snehmilan</td>
-                                        <td>kayami</td>
-                                        <td>shree dilipBhai, test, test2</td>
-                                        <td>2023</td>
-                                        <td><button type="button" className="btn btn-primary">Delete</button></td>
-                                    </tr>
+                                    {
+                                        getDataShresData?.map((item, index) => (
+                                            <tr key={index} className='tbody-tr'>
+                                                <th scope="row"><img src={apiconst.getAnyImages + item.image} alt="photo" className='inner-photo' /></th>
+                                                <td>{item.name}</td>
+                                                <td>{item.village}</td>
+                                                <td>{item.dataShreeType}</td>
+                                                <td>{item.numberOfsnehMilan}</td>
+                                                <td>{item.type}</td>
+                                                <td>{item.member}</td>
+                                                <td>{item.year}</td>
+                                                <td><AiFillDelete onClick={() => deleteDataShree(item.id)} /></td>
+                                            </tr>
+                                        ))
+                                    }
                                 </tbody>
                             </table>
                         </div>
@@ -68,32 +130,30 @@ function DataShree() {
 
                     {/* ------------------- Modal --------------------------------- */}
 
-                    <div className="modal fade" id="dataShree" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div className="modal-dialog" role="document">
-                            <div className="modal-content">
-                                <div className="modal-header">
-                                    <h5 className="modal-title" id="exampleModalLabel">Jenish Vekariya</h5>
-                                    <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
+                    <div class="modal fade" id="dataShree" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                                    <button type="button" ref={refClose} class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
-                                <div className="modal-body">
-                                    <form action="" method="post" encType='nultipart/form-data' onSubmit={formSubmit}>
-                                        <input type="text" name='name' className="form-control mt-3" placeholder='Enter Name' onChange={datashree} />
-                                        <input type="text" name='village' className="form-control mt-3" placeholder='Enter Mobile' onChange={datashree} />
-                                        <input type="text" name='dataShreeType' className="form-control mt-3" placeholder='Enter Village' onChange={datashree} />
-                                        <input type="text" name='numberOfsnehMilan' className="form-control mt-3" placeholder='Enter Role' onChange={datashree} />
-                                        <input type="text" name='type' className="form-control mt-3" placeholder='Enter Type' onChange={datashree} />
-                                        <input type="text" name='member' className="form-control mt-3" placeholder='Enter Member' onChange={datashree} />
-                                        <input type="text" name='year' className="form-control mt-3" placeholder='Enter Year' onChange={datashree} />
+                                <div class="modal-body">
+                                    <form encType='multipart/form-data' onSubmit={addDataShree}>
+                                        <input type="text" name='name' class="form-control mt-3" placeholder='Enter Name' onChange={datashree} />
+                                        <input type="text" name='village' class="form-control mt-3" placeholder='Enter Mobile' onChange={datashree} />
+                                        <input type="text" name='dataShreeType' class="form-control mt-3" placeholder='Enter Village' onChange={datashree} />
+                                        <input type="text" name='numberOfsnehMilan' class="form-control mt-3" placeholder='Enter snehmilan number' onChange={datashree} />
+                                        <input type="text" name='type' class="form-control mt-3" placeholder='Enter Type' onChange={datashree} />
+                                        <input type="text" name='member' class="form-control mt-3" placeholder='Enter Member' onChange={datashree} />
+                                        <input type="text" name='year' class="form-control mt-3" placeholder='Enter Year' onChange={datashree} />
                                         <span>Image :- </span>
                                         <input type="file" name='photo' className='mt-3' onChange={(e) => setImage(e.target.files[0])} />
                                         <br />
-                                        <button type="submit" className="btn btn-primary btn-md mt-4" style={{width:"100%"}}>Send</button>
+                                        <button type="submit" class="btn btn-primary btn-md mt-4" style={{ width: "100%" }}>Send</button>
                                     </form>
                                 </div>
-                                <div className="modal-footer">
-                                    <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                 </div>
                             </div>
                         </div>

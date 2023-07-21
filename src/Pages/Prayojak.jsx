@@ -1,9 +1,15 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useCallback, useRef } from 'react'
 import SideBar from '../component/SideBar'
 import Navbar from '../component/Navbar'
 import { AiFillDelete } from 'react-icons/ai'
+import makeAPIRequest from '../Globle/apiCall'
+import { apiconst } from '../Globle/keys'
 
 const Prayojak = () => {
+
+    // --------------- add prayojk--------------
+
+    const ref = useRef()
     const [image, setImage] = useState(null)
     const [prayojakInfo, setPrayojakInfo] = useState({
         name: "",
@@ -18,8 +24,58 @@ const Prayojak = () => {
         e.preventDefault()
         const formData = new FormData()
         formData.append('photo', image)
-        formData.append('data', prayojakInfo)
+        formData.append('name', prayojakInfo.name)
+        formData.append('mobile_no', prayojakInfo.mobile_no)
+        formData.append('village', prayojakInfo.village)
+        formData.append('role', prayojakInfo.role)
+        makeAPIRequest("post", apiconst.addprayojak, formData, null, null)
+            .then((res) => {
+                if (res.data.prayojakData) {
+                    getData()
+                    ref.current.click()
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+
     }
+    // --------------- add prayojk--------------
+
+    // ---------------get all prayojk -------------
+
+    const [prayojakData, setPrayojakData] = useState([])
+
+    const getData = useCallback(() => {
+        makeAPIRequest("get", apiconst.getPrayojak, null, null, null)
+            .then((res) => {
+                setPrayojakData(res.data.prayojakData)
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+    }, [])
+    // ---------------get all prayojk -------------
+
+
+    // -------------- Delete prayojk ----------
+    const deletePrayojk = (id) => {
+        makeAPIRequest("delete", apiconst.deletePrayojk + id, null, null, null)
+            .then((res) => {
+                alert('Deleted successfully')
+                getData()
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+    }
+    // -------------- Delete prayojk ----------
+
+    useEffect(() => {
+        getData()
+    }, [getData])
+
+
     return (
         <>
             <div className="flex-section">
@@ -45,14 +101,18 @@ const Prayojak = () => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr className='tbody-tr'>
-                                        <th scope="row"><img src={require("../assets/photo1.jpeg")} alt="photo" className='inner-photo' /></th>
-                                        <td>Rihil Sanghani D.</td>
-                                        <td>1234567890</td>
-                                        <td>Test</td>
-                                        <td>prayojak</td>
-                                        <td><button type="button" className="btn btn-primary">Delete</button></td>
-                                    </tr>
+                                    {
+                                        prayojakData?.map((item, index) => (
+                                            <tr className='tbody-tr'>
+                                                <th scope="row"><img src={apiconst.getAnyImages + item?.photo} alt="photo" className='inner-photo' /></th>
+                                                <td>{item?.name}</td>
+                                                <td>{item?.mobile_no}</td>
+                                                <td>{item?.village}</td>
+                                                <td>{item?.role}</td>
+                                                <td><AiFillDelete onClick={() => deletePrayojk(item?.prayojak_id)} /></td>
+                                            </tr>
+                                        ))
+                                    }
                                 </tbody>
                             </table>
                         </div>
@@ -64,24 +124,19 @@ const Prayojak = () => {
                         <div className="modal-dialog" role="document">
                             <div className="modal-content">
                                 <div className="modal-header">
-                                    <h5 className="modal-title" id="exampleModalLabel">Jenish Vekariya</h5>
-                                    <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
+                                    <h5 className="modal-title">Modal title</h5>
+                                    <button type="button" ref={ref} className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div className="modal-body">
                                     <form action="" method="post" encType='nultipart/form-data' onSubmit={formSubmit}>
-                                        <input type="text" name='name' className="form-control" placeholder='Enter Name' onChange={prayojak} />
-                                        <input type="text" name='mobile_no' className="form-control" placeholder='Enter Mobile' onChange={prayojak} />
-                                        <input type="text" name='village' className="form-control" placeholder='Enter Village' onChange={prayojak} />
-                                        <input type="text" name='role' className="form-control" placeholder='Enter Role' onChange={prayojak} />
+                                        <input className='model_input form-control' type="text" name='name' placeholder='Enter Name' onChange={prayojak} />
+                                        <input className='model_input form-control' type="text" name='mobile_no' placeholder='Enter Mobile' onChange={prayojak} />
+                                        <input className='model_input form-control' type="text" name='village' placeholder='Enter Village' onChange={prayojak} />
+                                        <input className='model_input form-control' type="text" name='role' placeholder='Enter Role' onChange={prayojak} />
                                         <span>Image :- </span>
-                                        <input type="file" name='photo' onChange={(e) => setImage(e.target.files[0])} />
+                                        <input className='model_input' type="file" name='photo' onChange={(e) => setImage(e.target.files[0])} />
                                         <button type="submit" className="btn btn-primary">Send</button>
                                     </form>
-                                </div>
-                                <div className="modal-footer">
-                                    <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
                                 </div>
                             </div>
                         </div>
