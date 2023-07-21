@@ -33,7 +33,7 @@ const Prayojak = () => {
                     </div>
                     <div className="inner-form-data">
                         <div className="sub-member-data">
-                            <table class="table table-striped">
+                            <table className="table table-striped">
                                 <thead>
                                     <tr>
                                         <th scope="col">Photo</th>
@@ -51,7 +51,7 @@ const Prayojak = () => {
                                         <td>1234567890</td>
                                         <td>Test</td>
                                         <td>prayojak</td>
-                                        <td><button type="button" class="btn btn-primary">Delete</button></td>
+                                        <td><button type="button" className="btn btn-primary">Delete</button></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -60,28 +60,28 @@ const Prayojak = () => {
 
                     {/* ------------------- Modal --------------------------------- */}
 
-                    <div class="modal fade" id="addCommity" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Jenish Vekariya</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <div className="modal fade" id="addCommity" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div className="modal-dialog" role="document">
+                            <div className="modal-content">
+                                <div className="modal-header">
+                                    <h5 className="modal-title" id="exampleModalLabel">Jenish Vekariya</h5>
+                                    <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
-                                <div class="modal-body">
+                                <div className="modal-body">
                                     <form action="" method="post" encType='nultipart/form-data' onSubmit={formSubmit}>
-                                        <input type="text" name='name' class="form-control" placeholder='Enter Name' onChange={prayojak} />
-                                        <input type="text" name='mobile_no' class="form-control" placeholder='Enter Mobile' onChange={prayojak} />
-                                        <input type="text" name='village' class="form-control" placeholder='Enter Village' onChange={prayojak} />
-                                        <input type="text" name='role' class="form-control" placeholder='Enter Role' onChange={prayojak} />
+                                        <input type="text" name='name' className="form-control" placeholder='Enter Name' onChange={prayojak} />
+                                        <input type="text" name='mobile_no' className="form-control" placeholder='Enter Mobile' onChange={prayojak} />
+                                        <input type="text" name='village' className="form-control" placeholder='Enter Village' onChange={prayojak} />
+                                        <input type="text" name='role' className="form-control" placeholder='Enter Role' onChange={prayojak} />
                                         <span>Image :- </span>
                                         <input type="file" name='photo' onChange={(e) => setImage(e.target.files[0])} />
-                                        <button type="submit" class="btn btn-primary">Send</button>
+                                        <button type="submit" className="btn btn-primary">Send</button>
                                     </form>
                                 </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <div className="modal-footer">
+                                    <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
                                 </div>
                             </div>
                         </div>

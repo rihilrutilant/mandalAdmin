@@ -32,7 +32,7 @@ const Commity = () => {
                     </div>
                     <div className="inner-form-data">
                         <div className="sub-member-data">
-                            <table class="table table-striped">
+                            <table className="table table-striped">
                                 <thead>
                                     <tr>
                                         <th scope="col">Photo</th>
@@ -48,7 +48,7 @@ const Commity = () => {
                                         <td>Rihil Sanghani D.</td>
                                         <td>DataShree</td>
                                         <td>12/12/1212</td>
-                                        <td><AiFillDelete /></td>
+                                        <td><AiFillDelete className='cursor-pointer1' /></td>
                                     </tr>
                                 </tbody>
                             </table>
