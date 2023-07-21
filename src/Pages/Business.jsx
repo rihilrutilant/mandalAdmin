@@ -1,10 +1,35 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Navbar from '../component/Navbar'
 import SideBar from '../component/SideBar'
 import "../style/FetchData.css"
-import { FaEye } from 'react-icons/fa';
+import { FaTrash } from 'react-icons/fa';
+import { BASE_URL, apiconst } from '../Globle/keys';
+import makeAPIRequest from '../Globle/apiCall';
 
 function Business() {
+    const [businessData, setBusinessData] = useState([])
+
+    // Fetch Business Data
+    useEffect(() => {
+        makeAPIRequest('get', apiconst.getBusinessData, null, null, null)
+            .then((response) => {
+                setBusinessData(response.data.businessData)
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+    }, [])
+
+    // Delete Business Data
+    const deleteBusinessData = (businessId) => {
+        makeAPIRequest('delete', apiconst.deleteBusinessData + businessId, null, null, null)
+            .then((response) => {
+                alert(response.data.message)
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+    }
     return (
         <div className="flex-section">
             <SideBar />
@@ -12,7 +37,7 @@ function Business() {
                 <Navbar />
                 <div className="inner-form-data">
                     <div className="sub-member-data">
-                        <table class="table table-striped">
+                        <table className="table table-striped">
                             <thead>
                                 <tr>
                                     <th scope="col">Image</th>
@@ -27,39 +52,21 @@ function Business() {
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr className='tbody-tr'>
-                                    <td scope="row"><img src={require("../assets/photo1.jpeg")} alt="photo" className='inner-photo' /></td>
-                                    <td className='align-middle'>textile</td>
-                                    <td className='align-middle'>XYZ</td>
-                                    <td className='align-middle'>Surat</td>
-                                    <td className='align-middle'>1234567890</td>
-                                    <td className='align-middle'>xyz@gmail.com</td>
-                                    <td className='align-middle'>www.google.com</td>
-                                    <td className='align-middle'>96, dimond city</td>
-                                    <td className='align-middle eye-icon'><FaEye /></td>
-                                </tr>
-                                <tr className='tbody-tr'>
-                                    <td scope="row"><img src={require("../assets/photo2.webp")} alt="photo" className='inner-photo' /></td>
-                                    <td className='align-middle'>textile</td>
-                                    <td className='align-middle'>ABC</td>
-                                    <td className='align-middle'>Surat</td>
-                                    <td className='align-middle'>9876543210</td>
-                                    <td className='align-middle'>abc@gmail.com</td>
-                                    <td className='align-middle'>www.google.com</td>
-                                    <td className='align-middle'>100, silver city</td>
-                                    <td className='align-middle eye-icon'><FaEye /></td>
-                                </tr>
-                                <tr className='tbody-tr'>
-                                    <td scope="row"><img src={require("../assets/photo3.jpeg")} alt="photo" className='inner-photo' /></td>
-                                    <td className='align-middle'>textile</td>
-                                    <td className='align-middle'>DEF</td>
-                                    <td className='align-middle'>Surat</td>
-                                    <td className='align-middle'>9876512340</td>
-                                    <td className='align-middle'>def@gmail.com</td>
-                                    <td className='align-middle'>www.google.com</td>
-                                    <td className='align-middle'>102, gold city</td>
-                                    <td className='align-middle eye-icon'><FaEye /></td>
-                                </tr>
+                                {
+                                    businessData.map((items, index) => (
+                                        <tr className='tbody-tr' key={index}>
+                                            <td scope="row"><img src={`${BASE_URL}/${items.photo}`} alt="photo" className='inner-photo' /></td>
+                                            <td className='align-middle'> {items.business_name} </td>
+                                            <td className='align-middle'> {items.owner_name} </td>
+                                            <td className='align-middle'> {items.city} </td>
+                                            <td className='align-middle'> {items.mobile_no} </td>
+                                            <td className='align-middle'> {items.email} </td>
+                                            <td className='align-middle'> {items.website} </td>
+                                            <td className='align-middle'> {items.business_address} </td>
+                                            <td className='align-middle eye-icon'><FaTrash className='cursor-pointer1' onClick={() => deleteBusinessData(items.business_id)} /></td>
+                                        </tr>
+                                    ))
+                                }
                             </tbody>
                         </table>
                     </div>

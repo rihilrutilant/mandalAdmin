@@ -59,7 +59,7 @@ const SideBar = () => {
               <span>Motivation</span>
             </NavLink>
             <NavLink to="/news" className="nav-link">
-              <i class="fa-solid fa-newspaper"></i>
+              <i className="fa-solid fa-newspaper"></i>
               <span>News</span>
             </NavLink>
             <NavLink to="/business" className="nav-link">
@@ -73,6 +73,10 @@ const SideBar = () => {
             <NavLink to="/prayojak" className="nav-link">
               <SiGoogleclassroom size={ICON_SIZE} />
               <span>Prayojak</span>
+            </NavLink>
+            <NavLink to="/datashree" className="nav-link">
+              <SiGoogleclassroom size={ICON_SIZE} />
+              <span>Datashree</span>
             </NavLink>
             <NavLink onClick={logout} className="logout">
               <MdOutlineExitToApp size={ICON_SIZE} />

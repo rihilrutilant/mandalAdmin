@@ -1,10 +1,14 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import SideBar from '../component/SideBar'
 import Navbar from '../component/Navbar'
 import "../style/FetchData.css"
 import axios from 'axios'
+import { FaTrash } from "react-icons/fa"
+import makeAPIRequest from '../Globle/apiCall'
+import { BASE_URL, apiconst } from '../Globle/keys'
 
 function Advertisement() {
+    const [advertisementData, setAdvertisementData] = useState([])
     const [postAdvertisement, setPostAdvertisement] = useState({
         business_name: "",
         owner_name: "",
@@ -15,16 +19,54 @@ function Advertisement() {
         business_address: "",
     })
     const [image, setImage] = useState(null)
+
+    // Fetch Advertisement Data
+    useEffect(() => {
+        makeAPIRequest('get', apiconst.getAdvertisementData, null, null, null)
+            .then((response) => {
+                setAdvertisementData(response.data.advertisementData)
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+    }, [])
+
+    // Delete Advertisement Data
+    const deleteAddData = (advertisementId) => {
+        makeAPIRequest('delete', apiconst.deleteAdvertisementData + advertisementId, null, null, null)
+            .then((response) => {
+                alert(response.data.message)
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+    }
+
+    // Get Advertisement Data
     const postAdvertisementInfo = (event) => {
         setPostAdvertisement({ ...postAdvertisement, [event.target.name]: event.target.value })
     }
 
+    // Post Advertisement Data
     const formSubmitHandle = (e) => {
         e.preventDefault()
         const formData = new FormData()
         formData.append('photo', image)
-        formData.append('data', postAdvertisement)
+        formData.append('business_name', postAdvertisement.business_name)
+        formData.append('owner_name', postAdvertisement.owner_name)
+        formData.append('city', postAdvertisement.city)
+        formData.append('mobile_no', postAdvertisement.mobile_no)
+        formData.append('email', postAdvertisement.email)
+        formData.append('website', postAdvertisement.website)
+        formData.append('business_address', postAdvertisement.business_address)
 
+        makeAPIRequest('post', apiconst.createAdvertisementData, formData, null, null)
+            .then((response) => {
+                alert(response.data.message)
+            })
+            .catch((error) => {
+                console.log(error);
+            })
     }
     return (
         <div className="flex-section">
@@ -53,45 +95,21 @@ function Advertisement() {
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr className='tbody-tr'>
-                                    <td scope="row"><img src={require("../assets/photo1.jpeg")} alt="photo" className='inner-photo' /></td>
-                                    <td className='align-middle'>textile</td>
-                                    <td className='align-middle'>XYZ</td>
-                                    <td className='align-middle'>Surat</td>
-                                    <td className='align-middle'>1234567890</td>
-                                    <td className='align-middle'>xyz@gmail.com</td>
-                                    <td className='align-middle'>www.google.com</td>
-                                    <td className='align-middle'>96, dimond city</td>
-                                    <td className='align-middle'>
-                                        <button type="button" className="btn btn-primary btn-md" data-toggle="modal" data-target="#exampleModal">Delete</button>
-                                    </td>
-                                </tr>
-                                <tr className='tbody-tr'>
-                                    <td scope="row"><img src={require("../assets/photo2.webp")} alt="photo" className='inner-photo' /></td>
-                                    <td className='align-middle'>textile</td>
-                                    <td className='align-middle'>ABC</td>
-                                    <td className='align-middle'>Surat</td>
-                                    <td className='align-middle'>9876543210</td>
-                                    <td className='align-middle'>abc@gmail.com</td>
-                                    <td className='align-middle'>www.google.com</td>
-                                    <td className='align-middle'>100, silver city</td>
-                                    <td className='align-middle'>
-                                        <button type="button" className="btn btn-primary btn-md" data-toggle="modal" data-target="#exampleModal">Delete</button>
-                                    </td>
-                                </tr>
-                                <tr className='tbody-tr'>
-                                    <td scope="row"><img src={require("../assets/photo3.jpeg")} alt="photo" className='inner-photo' /></td>
-                                    <td className='align-middle'>textile</td>
-                                    <td className='align-middle'>DEF</td>
-                                    <td className='align-middle'>Surat</td>
-                                    <td className='align-middle'>9876512340</td>
-                                    <td className='align-middle'>def@gmail.com</td>
-                                    <td className='align-middle'>www.google.com</td>
-                                    <td className='align-middle'>102, gold city</td>
-                                    <td className='align-middle'>
-                                        <button type="button" className="btn btn-primary btn-md" data-toggle="modal" data-target="#exampleModal">Delete</button>
-                                    </td>
-                                </tr>
+                                {
+                                    advertisementData.map((items, index) => (
+                                        <tr className='tbody-tr' key={index}>
+                                            <td scope="row"><img src={`${BASE_URL}/${items.photo}`} alt="photo" className='inner-photo' /></td>
+                                            <td className='align-middle'> {items.business_name} </td>
+                                            <td className='align-middle'> {items.owner_name} </td>
+                                            <td className='align-middle'> {items.city} </td>
+                                            <td className='align-middle'> {items.mobile_no} </td>
+                                            <td className='align-middle'> {items.email} </td>
+                                            <td className='align-middle'> {items.website} </td>
+                                            <td className='align-middle'> {items.business_address} </td>
+                                            <td className='align-middle'><FaTrash className='cursor-pointer1' onClick={() => deleteAddData(items.advertisement_id)} /></td>
+                                        </tr>
+                                    ))
+                                }
                             </tbody>
                         </table>
                     </div>
@@ -104,7 +122,7 @@ function Advertisement() {
                         <div className="modal-content">
                             <div className="modal-header">
                                 <h5 className="modal-title" id="exampleModalLabel">Event Id: 123456</h5>
-                                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                                <button type="button" className="close" data-bs-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
@@ -120,12 +138,12 @@ function Advertisement() {
                                         <input type="email" className="form-control mt-3" placeholder='Email' name='email' onChange={postAdvertisementInfo} />
                                         <input type="text" className="form-control mt-3" placeholder='Website' name='website' onChange={postAdvertisementInfo} />
                                         <input type="text" className="form-control mt-3" placeholder='Business Address' name='business_address' onChange={postAdvertisementInfo} />
-                                        <button type="submit" className="btn btn-primary btn-lg btn-block mt-3" data-dismiss="modal">Send</button>
+                                        <button type="submit" className="btn btn-primary btn-lg btn-block mt-3" data-bd-dismiss="modal">Send</button>
                                     </div>
                                 </form>
                             </div>
                             <div className="modal-footer">
-                                <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                             </div>
                         </div>
                     </div>
