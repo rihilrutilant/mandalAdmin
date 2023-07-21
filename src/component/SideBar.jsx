@@ -74,6 +74,10 @@ const SideBar = () => {
               <SiGoogleclassroom size={ICON_SIZE} />
               <span>Prayojak</span>
             </NavLink>
+            <NavLink to="/datashree" className="nav-link">
+              <SiGoogleclassroom size={ICON_SIZE} />
+              <span>Datashree</span>
+            </NavLink>
             <NavLink onClick={logout} className="logout">
               <MdOutlineExitToApp size={ICON_SIZE} />
               <span>Log Out</span>

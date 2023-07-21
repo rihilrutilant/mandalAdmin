@@ -16,6 +16,7 @@ import Event from "./Pages/Event";
 import Motivation from "./Pages/Motivation";
 import Prayojak from "./Pages/Prayojak";
 
+
 function App() {
   const userData = sessionStorage.getItem("Admin_Token");
 
@@ -38,13 +39,13 @@ function App() {
               <Route path="/slider" element={<Slider />} />
               <Route path="/fetchdata" element={<FetchData />} />
               <Route path="/notice" element={<Notice />} />
-              <Route path="/news" element={<News />} />
-              <Route path="/advertisement" element={<Advertisement />} />
-              <Route path="/business" element={<Business />} />
-              <Route path="/commity" element={<Commity />} />
-              <Route path="/event" element={<Event />} />
-              <Route path="/motivation" element={<Motivation />} />
-              <Route path="/prayojak" element={<Prayojak />} />
+                <Route path="/news" element={<News />} />
+                <Route path="/advertisement" element={<Advertisement />} />
+                <Route path="/business" element={<Business />} />
+                <Route path="/commity" element={<Commity />} />
+                <Route path="/event" element={<Event />} />
+                <Route path="/motivation" element={<Motivation />} />
+                <Route path="/prayojak" element={<Prayojak />} />
             </>
           )}
           <Route path="*" element={<PageNotFound />} />
