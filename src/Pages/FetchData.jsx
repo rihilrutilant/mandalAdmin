@@ -4,6 +4,7 @@ import SideBar from '../component/SideBar'
 import "../style/FetchData.css"
 import makeAPIRequest from '../Globle/apiCall'
 import { apiconst } from '../Globle/keys'
+import * as XLSX from 'xlsx'
 
 const FetchData = () => {
     const mukhiyaId = sessionStorage.getItem("mukiyaId")
@@ -11,15 +12,15 @@ const FetchData = () => {
 
     // ----------------------- get members ----------------------------
     const [getDataOFMembers, setGetDataOFMembers] = useState([])
-    const getAllMembers = useCallback(() => {
-        makeAPIRequest('get', apiconst.getMembersOfMukiya + 1, null, null, null)
+    const getAllMembers = useCallback((Id) => {
+        makeAPIRequest('get', apiconst.getMembersOfMukiya + Id, null, null, null)
             .then((res) => {
                 setGetDataOFMembers(res?.data?.data)
             })
             .catch((err) => {
                 console.log(err);
             })
-    }, [mukhiyaId],)
+    }, [Id],)
 
     // ----------------------- get members ----------------------------
     const [modelData, setModelData] = useState()
@@ -30,7 +31,35 @@ const FetchData = () => {
         getAllMembers()
     }, [getAllMembers])
 
+    const downloadExcelSheet = async () => {
+        // Create a new workbook
+        const workbook = XLSX.utils.book_new();
 
+        // Convert the JSON data to a worksheet
+        const worksheet = XLSX.utils.json_to_sheet(getDataOFMembers);
+
+        // Add the worksheet to the workbook
+        XLSX.utils.book_append_sheet(workbook, worksheet, 'Sheet1');
+
+        // Generate the Excel file binary data
+        const excelBuffer = XLSX.write(workbook, { type: 'array', bookType: 'xlsx' });
+
+        // Convert the array buffer to a Blob
+        const blob = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+
+        // Create a temporary URL for the Blob
+        const url = window.URL.createObjectURL(blob);
+
+        // Create a link element and click it to initiate the download
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', 'data.xlsx'); // Set the desired filename for the download
+        document.body.appendChild(link);
+        link.click();
+
+        // Clean up the temporary URL
+        window.URL.revokeObjectURL(url);
+    }
 
     return (
         <div className="flex-section">
@@ -38,6 +67,9 @@ const FetchData = () => {
             <div className="total-rightsde-section">
                 <Navbar />
                 <div className="inner-form-data">
+                    <div className="add-data">
+                        <button className='ad_slider_btn' onClick={downloadExcelSheet}>Download Excle</button>                    
+                    </div>
                     <div className='first-line'>
                         {/* <h3>Mukhya Name: Jenish Vekariya</h3> */}
                         <h3>Id:	{mukhiyaId}</h3>

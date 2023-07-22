@@ -7,7 +7,9 @@ import { BiEditAlt } from 'react-icons/bi'
 import makeAPIRequest from '../Globle/apiCall'
 import { BsWhatsapp } from 'react-icons/bs'
 import { AiFillEye } from 'react-icons/ai'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+import * as XLSX from 'xlsx'
+
 
 const MukhyaMember = () => {
 
@@ -128,10 +130,40 @@ const MukhyaMember = () => {
   // ---------------- Edit member--------------------
 
   const naviGate = useNavigate()
-  const sendData = (id,Mid) => {
+  const sendData = (id, Mid) => {
     sessionStorage.setItem("mukiyaId", id)
     sessionStorage.setItem("Id", Mid)
     naviGate('/fetchdata')
+  }
+
+  const downloadExcelSheet = async () => {
+    // Create a new workbook
+    const workbook = XLSX.utils.book_new();
+
+    // Convert the JSON data to a worksheet
+    const worksheet = XLSX.utils.json_to_sheet(allmembers);
+
+    // Add the worksheet to the workbook
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Sheet1');
+
+    // Generate the Excel file binary data
+    const excelBuffer = XLSX.write(workbook, { type: 'array', bookType: 'xlsx' });
+
+    // Convert the array buffer to a Blob
+    const blob = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+
+    // Create a temporary URL for the Blob
+    const url = window.URL.createObjectURL(blob);
+
+    // Create a link element and click it to initiate the download
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute('download', 'data.xlsx'); // Set the desired filename for the download
+    document.body.appendChild(link);
+    link.click();
+
+    // Clean up the temporary URL
+    window.URL.revokeObjectURL(url);
   }
 
   return (
@@ -141,6 +173,7 @@ const MukhyaMember = () => {
         <div className="total-rightsde-section">
           <Navbar />
           <div className="add-data">
+            <button className='ad_slider_btn' onClick={downloadExcelSheet}>Download Excle</button>
             <button className='ad_slider_btn' type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
               + Add Data
             </button>

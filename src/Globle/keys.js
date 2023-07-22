@@ -46,6 +46,9 @@ const apiconst = {
     getAllNews: `${BASE_URL}/api/news/get`,
     createNews: `${BASE_URL}/api/news/create`,
     remove_News: `${BASE_URL}/api/news/delete/`,
+
+    //Download Excel Sheet
+    downloadSheet: `${BASE_URL}/api/admin/mukhiya/excel`,
 }
 
 export { apiconst, BASE_URL }
