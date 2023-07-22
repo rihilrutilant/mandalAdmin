@@ -4,111 +4,83 @@ import '../style/MukhyaMember.css'
 import SideBar from "../component/SideBar"
 import Navbar from '../component/Navbar'
 import { apiconst } from '../Globle/keys'
-import { BiEditAlt } from 'react-icons/bi'
+import { AiFillDelete } from 'react-icons/ai';
 import makeAPIRequest from '../Globle/apiCall'
 
 const News = () => {
 
   //---------------------fetch all members------------------
-  const [news, setnews] = useState([])
+  const [news, setNews] = useState([])
 
-  const [lastId, setlastId] = useState()
 
-  const fetchnews = useCallback(() => {
-    makeAPIRequest('get', apiconst.fatch_all_members, null, null, null)
-      .then(async (response) => {
-        let data = response.data.data;
-        setnews(data)
-      })
-      .catch((error) => {
-        console.log(error);
+  const getALLNews = useCallback(() => {
+    makeAPIRequest('get', apiconst.getAllNews, null, null, null)
+      .then((response) => {
+        console.log('response: ', response);
+        setNews(response.data.newsData)
+      }).catch(() => {
+        alert("There is something wrong entry")
       });
   }, [])
 
-  useEffect(() => {
-    fetchnews();
-  }, [fetchnews])
+
 
 
   //---------------------fetch all members------------------
 
 
-  // ---------------- Add member--------------------
-  const [allData, setallData] = useState({
-    photo: "",
+  // ---------------------Add News-----------------------
+  const refClose = useRef(null)
+  const [addNews, setAddNews] = useState({
     news: ""
   })
+  const [newsImg, setNewsImg] = useState()
 
-  const refClose = useRef(null);
-  const refClose1 = useRef(null);
-
-
-  const addData = (id) => {
-    const { photo, news } = allData
-    const member_id = id
-    let data = {
-      photo,
-      news,
-    }
-    makeAPIRequest('post', apiconst.create_mukhya_member, data, null, null)
-      .then(function (response) {
-        refClose1.current.click()
-        fetchnews()
-      })
-      .catch(function (error) {
-        alert("Please Enter Valid Data")
-      });
+  const onChanges = (e) => {
+    setAddNews({ ...addNews, [e.target.name]: e.target.value })
   }
 
-  const onChangesholiday = (e) => {
-    setallData(() => ({ ...allData, [e.target.name]: e.target.value }))
-  }
-  // ---------------- Add member--------------------
+  const createNews = (e) => {
+    e.preventDefault()
+    const formData = new FormData();
+    formData.append("photo", newsImg)
+    formData.append("news", addNews.news)
 
-  // ---------------- Edit member--------------------
-  const [editMember, setEditMember] = useState({
-    photo: "",
-    news: "",
-  })
-
-  const ref = useRef(null);
-
-  const updateMember = (currentRest) => {
-    ref.current.click();
-    setEditMember({
-      photo: currentRest.photo,
-      news: currentRest.news,
-    })
-  }
-
-  const handleSubmit = (e) => {
-    updateAllMember(
-      editMember.photo,
-      editMember.news,
-    )
-  }
-
-  const updateAllMember = (photo,news) => {
-
-    const data = {
-      photo:photo,
-      news:news,
-    }
-    makeAPIRequest('put', apiconst.edit_mukhya_member , data, null, null)
-      .then(() => {
+    makeAPIRequest("post", apiconst.createNews, formData, null, null)
+      .then((res) => {
+        console.log(res.data);
         refClose.current.click()
-        fetchnews()
+        getALLNews()
       })
-      .catch(() => {
-        alert("There is something wrong entry")
-      });
+      .catch((err) => {
+        console.log(err);
+      })
   }
 
-  const editChange = (e) => {
-    setEditMember({ ...editMember, [e.target.name]: e.target.value })
+  //----------------------------------add News-----------------
+
+  //-----------------------remove motivation---------------------
+
+  const deleteNews = (id) => {
+    makeAPIRequest("delete", apiconst.remove_News + id, null, null)
+      .then((res) => {
+        console.log('res:-------------- ', res);
+        getALLNews()
+      })
+      .catch((err) => {
+        console.log(err);
+      })
   }
 
-  // ---------------- Edit member--------------------
+  // -------------------------------remove motivation----------------------
+
+
+  useEffect(() => {
+    getALLNews();
+  }, [getALLNews])
+
+
+
 
   return (
     <>
@@ -128,12 +100,7 @@ const News = () => {
                   <th scope="col" className='all-padding'>Index</th>
                   <th scope="col">Images</th>
                   <th scope="col">News</th>
-                  <th scope="col"></th>
-                  <th scope="col"></th>
-                  <th scope="col"></th>
-                  <th scope="col"></th>
-                  {/* <th scope="col"></th>
-                  <th scope="col"></th> */}
+
                 </tr>
               </thead>
               <tbody>
@@ -141,10 +108,9 @@ const News = () => {
                   news?.map((item, index) => (
                     <tr key={index}>
                       <th scope="row" className='all-padding1'>{index + 1}</th>
-                      <td>{item?.mukhiya_mobile_no}</td>
-                      <td>{item?.member_id}</td>
-                      <td>{item?.member_password}</td>
-                      <td><BiEditAlt className='cursor-pointer' onClick={() => updateMember(item)} /></td>
+                      <td><img src={apiconst.getAnyImages + item?.photo} alt="photo" className='inner-photo' /></td>
+                      <td>{item?.news}</td>
+                      <td><AiFillDelete onClick={() => deleteNews(item?.news_id)} /></td>
                     </tr>
                   ))
                 }
@@ -159,26 +125,27 @@ const News = () => {
             <div className="modal-content">
               <div className="modal-header">
                 <h4 className="modal-title" id="exampleModalLabelnews">Add New Data</h4>
-                <button type="button" className="btn-close" ref={refClose1} data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" className="btn-close" ref={refClose} data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
-              <div className="modal-body">
-                <p className='modal-title-name'>Images</p>
-                <input type="file" className='input-tag' onChange={onChangesholiday} name='photo' />
-                <p className='modal-title-name'>News</p>
-                <input type="text" value={lastId} readOnly className='input-tag' name='news' />
-              </div>
-              <div className="modal-footer">
-                <button onClick={() => addData(lastId)} type="submit" className="ad_slider_btn2">Save changes</button>
-              </div>
+              <form onSubmit={createNews}>
+                <div className="modal-body">
+                  <p className='modal-title-name'>Images</p>
+                  <input type="file" className='input-tag' name='photo' onChange={(e) => setNewsImg(e.target.files[0])} />
+                  <p className='modal-title-name'>News</p>
+                  <input type="text" className='input-tag' name='news' onChange={onChanges} />
+                </div>
+                <div className="modal-footer">
+                  <button type="submit" className="ad_slider_btn2">Save changes</button>
+                </div>
+              </form>
             </div>
+
           </div>
-        </div>
+        </div >
         {/* --------- Add Data --------------- */}
 
         {/* --------- Update Data --------------- */}
-        <button type="button" style={{ display: 'none' }} ref={ref} className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalnews">
-          Launch demo modal
-        </button>
+
         <div className="modal fade" id="exampleModalnews" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div className="modal-dialog">
             <div className="modal-content">
@@ -188,19 +155,19 @@ const News = () => {
               </div>
               <div className="modal-body">
                 <p className='modal-title-name'>images</p>
-                <input type="text" className='input-tag' onChange={editChange} name='photo' value={editMember.mukhiya_mobile_no} />
+                <input type="text" className='input-tag' name='photo' onChange={(e) => setNewsImg(e.target.files[0])} />
                 <p className='modal-title-name'>News</p>
-                <input type="text" className='input-tag' onChange={editChange} name='news' value={editMember.member_password} />
+                <input type="text" className='input-tag' name='news' onChange={onChanges} />
               </div>
               <div className="modal-footer">
-                <button onClick={() => handleSubmit()} type="submit" className="ad_slider_btn2">Save changes</button>
+                <button type="submit" onClick={createNews} className="ad_slider_btn2">Save changes</button>
               </div>
             </div>
           </div>
         </div>
         {/* --------- Update Data --------------- */}
 
-      </div>
+      </div >
     </>
   )
 }
