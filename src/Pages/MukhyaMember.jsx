@@ -7,7 +7,7 @@ import { BiEditAlt } from 'react-icons/bi'
 import makeAPIRequest from '../Globle/apiCall'
 import { BsWhatsapp } from 'react-icons/bs'
 import { AiFillEye } from 'react-icons/ai'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 const MukhyaMember = () => {
 
@@ -127,6 +127,13 @@ const MukhyaMember = () => {
 
   // ---------------- Edit member--------------------
 
+  const naviGate = useNavigate()
+  const sendData = (id,Mid) => {
+    sessionStorage.setItem("mukiyaId", id)
+    sessionStorage.setItem("Id", Mid)
+    naviGate('/fetchdata')
+  }
+
   return (
     <>
       <div className="flex-section">
@@ -161,7 +168,7 @@ const MukhyaMember = () => {
                       <td>{item?.mukhiya_mobile_no}</td>
                       <td>{item?.member_id}</td>
                       <td>{item?.member_password}</td>
-                      <td><Link to='/fetchdata'><AiFillEye className='cursor-pointer1' /></Link></td>
+                      <td><AiFillEye className='cursor-pointer1' onClick={() => sendData(item?.member_id, item?.mukhiya_id)} /></td>
                       <td><BiEditAlt className='cursor-pointer' onClick={() => updateMember(item)} /></td>
                       <td><BsWhatsapp className='wp' /></td>
                     </tr>

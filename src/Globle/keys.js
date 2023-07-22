@@ -14,6 +14,7 @@ const apiconst = {
     remove_member: `${BASE_URL}/api/slider/remove_member/`,
     delete_slider: `${BASE_URL}/api/slider/delete_slider_img/`,
     getAnyImages: `${BASE_URL}/api/image?filename=`,
+    getMembersOfMukiya: `${BASE_URL}/api/memberdetails/getAll?mukhiyaId=`,
 
     getPrayojak: `${BASE_URL}/api/prayojak/get`,
     addprayojak: `${BASE_URL}/api/prayojak/create`,
