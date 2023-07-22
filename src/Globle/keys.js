@@ -37,6 +37,14 @@ const apiconst = {
     getAllMotivation: `${BASE_URL}/api/motivation/get`,
     createMotivation: `${BASE_URL}/api/motivation/create`,
     remove_Motivation: `${BASE_URL}/api/motivation/remove/`,
+
+    getNotices: `${BASE_URL}/api/suchna/get`,
+    deleteNotices: `${BASE_URL}/api/suchna/delete/`,
+    addNotice: `${BASE_URL}/api/suchna/create`,
+
+    getAllNews: `${BASE_URL}/api/news/get`,
+    createNews: `${BASE_URL}/api/news/create`,
+    remove_News: `${BASE_URL}/api/news/delete/`,
 }
 
 export { apiconst, BASE_URL }

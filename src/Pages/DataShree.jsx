@@ -93,7 +93,7 @@ function DataShree() {
                     </div>
                     <div className="inner-form-data">
                         <div className="sub-member-data">
-                            <table class="table table-striped">
+                            <table className="table table-striped">
                                 <thead>
                                     <tr>
                                         <th scope="col">Photo</th>
@@ -130,30 +130,30 @@ function DataShree() {
 
                     {/* ------------------- Modal --------------------------------- */}
 
-                    <div class="modal fade" id="dataShree" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-                                    <button type="button" ref={refClose} class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <div className="modal fade" id="dataShree" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div className="modal-dialog" role="document">
+                            <div className="modal-content">
+                                <div className="modal-header">
+                                    <h1 className="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                                    <button type="button" ref={refClose} className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
-                                <div class="modal-body">
+                                <div className="modal-body">
                                     <form encType='multipart/form-data' onSubmit={addDataShree}>
-                                        <input type="text" name='name' class="form-control mt-3" placeholder='Enter Name' onChange={datashree} />
-                                        <input type="text" name='village' class="form-control mt-3" placeholder='Enter Mobile' onChange={datashree} />
-                                        <input type="text" name='dataShreeType' class="form-control mt-3" placeholder='Enter Village' onChange={datashree} />
-                                        <input type="text" name='numberOfsnehMilan' class="form-control mt-3" placeholder='Enter snehmilan number' onChange={datashree} />
-                                        <input type="text" name='type' class="form-control mt-3" placeholder='Enter Type' onChange={datashree} />
-                                        <input type="text" name='member' class="form-control mt-3" placeholder='Enter Member' onChange={datashree} />
-                                        <input type="text" name='year' class="form-control mt-3" placeholder='Enter Year' onChange={datashree} />
+                                        <input type="text" name='name' className="form-control mt-3" placeholder='Enter Name' onChange={datashree} />
+                                        <input type="text" name='village' className="form-control mt-3" placeholder='Enter Mobile' onChange={datashree} />
+                                        <input type="text" name='dataShreeType' className="form-control mt-3" placeholder='Enter Village' onChange={datashree} />
+                                        <input type="text" name='numberOfsnehMilan' className="form-control mt-3" placeholder='Enter snehmilan number' onChange={datashree} />
+                                        <input type="text" name='type' className="form-control mt-3" placeholder='Enter Type' onChange={datashree} />
+                                        <input type="text" name='member' className="form-control mt-3" placeholder='Enter Member' onChange={datashree} />
+                                        <input type="text" name='year' className="form-control mt-3" placeholder='Enter Year' onChange={datashree} />
                                         <span>Image :- </span>
                                         <input type="file" name='photo' className='mt-3' onChange={(e) => setImage(e.target.files[0])} />
                                         <br />
-                                        <button type="submit" class="btn btn-primary btn-md mt-4" style={{ width: "100%" }}>Send</button>
+                                        <button type="submit" className="btn btn-primary btn-md mt-4" style={{ width: "100%" }}>Send</button>
                                     </form>
                                 </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <div className="modal-footer">
+                                    <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
                                 </div>
                             </div>
                         </div>

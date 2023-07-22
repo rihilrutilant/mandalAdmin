@@ -1,9 +1,8 @@
 import React from 'react';
-import { FaThLarge, FaChalkboardTeacher } from 'react-icons/fa';
+import { FaChalkboardTeacher } from 'react-icons/fa';
 import { RiFilePaperFill } from 'react-icons/ri'
 import { SlCalender } from 'react-icons/sl'
 import { TfiDropboxAlt } from 'react-icons/tfi'
-import { TbBeach } from 'react-icons/tb'
 import { VscTable } from 'react-icons/vsc'
 import { ImBooks } from 'react-icons/im'
 import { SiGoogleclassroom } from "react-icons/si"
