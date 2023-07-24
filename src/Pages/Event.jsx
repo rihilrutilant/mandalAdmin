@@ -126,7 +126,7 @@ function Event() {
                     <div className="modal-dialog" role="document">
                         <div className="modal-content">
                             <div className="modal-header">
-                                <h5 className="modal-title" id="exampleModalLabel">Event Id: 123456</h5>
+                                <h5 className="modal-title" id="exampleModalLabel">Add Event</h5>
                                 <button type="button" className="close" data-bs-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
@@ -156,7 +156,7 @@ function Event() {
                     <div className="modal-dialog" role="document">
                         <div className="modal-content">
                             <div className="modal-header">
-                                <h5 className="modal-title" id="exampleModalLabel">Event Id: 123456</h5>
+                                <h5 className="modal-title" id="exampleModalLabel">Add Event Photos</h5>
                                 <button type="button" className="close" data-bs-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>

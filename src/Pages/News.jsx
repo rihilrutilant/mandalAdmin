@@ -124,7 +124,7 @@ const News = () => {
           <div className="modal-dialog">
             <div className="modal-content">
               <div className="modal-header">
-                <h4 className="modal-title" id="exampleModalLabelnews">Add New Data</h4>
+                <h4 className="modal-title" id="exampleModalLabelnews">Add New News</h4>
                 <button type="button" className="btn-close" ref={refClose} data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <form onSubmit={createNews}>

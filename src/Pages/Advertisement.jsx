@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import SideBar from '../component/SideBar'
 import Navbar from '../component/Navbar'
 import "../style/FetchData.css"
@@ -8,6 +8,7 @@ import makeAPIRequest from '../Globle/apiCall'
 import { BASE_URL, apiconst } from '../Globle/keys'
 
 function Advertisement() {
+    const refClose = useRef(null)
     const [advertisementData, setAdvertisementData] = useState([])
     const [postAdvertisement, setPostAdvertisement] = useState({
         business_name: "",
@@ -20,22 +21,31 @@ function Advertisement() {
     })
     const [image, setImage] = useState(null)
 
+    const getData = useCallback(
+        () => {
+            makeAPIRequest('get', apiconst.getAdvertisementData, null, null, null)
+                .then((response) => {
+                    setAdvertisementData(response.data.advertisementData)
+                })
+                .catch((error) => {
+                    console.log(error);
+                })
+        },
+        [],
+    )
+
+
     // Fetch Advertisement Data
     useEffect(() => {
-        makeAPIRequest('get', apiconst.getAdvertisementData, null, null, null)
-            .then((response) => {
-                setAdvertisementData(response.data.advertisementData)
-            })
-            .catch((error) => {
-                console.log(error);
-            })
-    }, [])
+        getData()
+    }, [getData])
 
     // Delete Advertisement Data
     const deleteAddData = (advertisementId) => {
         makeAPIRequest('delete', apiconst.deleteAdvertisementData + advertisementId, null, null, null)
             .then((response) => {
                 alert(response.data.message)
+                getData()
             })
             .catch((error) => {
                 console.log(error);
@@ -62,7 +72,10 @@ function Advertisement() {
 
         makeAPIRequest('post', apiconst.createAdvertisementData, formData, null, null)
             .then((response) => {
-                alert(response.data.message)
+                if(response.data.message){
+                    refClose.current.click()
+                    getData()
+                }
             })
             .catch((error) => {
                 console.log(error);
@@ -98,7 +111,7 @@ function Advertisement() {
                                 {
                                     advertisementData.map((items, index) => (
                                         <tr className='tbody-tr' key={index}>
-                                            <td scope="row"><img src={`${BASE_URL}/${items.photo}`} alt="photo" className='inner-photo' /></td>
+                                            <td scope="row"><img src={apiconst?.getAnyImages + items?.photo} alt="photo" className='inner-photo' /></td>
                                             <td className='align-middle'> {items.business_name} </td>
                                             <td className='align-middle'> {items.owner_name} </td>
                                             <td className='align-middle'> {items.city} </td>
@@ -120,11 +133,9 @@ function Advertisement() {
                 <div className="modal fade" id="exampleModal-advertisement" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div className="modal-dialog" role="document">
                         <div className="modal-content">
-                            <div className="modal-header">
-                                <h5 className="modal-title" id="exampleModalLabel">Event Id: 123456</h5>
-                                <button type="button" className="close" data-bs-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">Add Advertisement</h1>
+                                <button ref={refClose} type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div className="modal-body">
                                 <form action="" method="post" encType='multipart/form-data' onSubmit={formSubmitHandle}>
@@ -138,7 +149,7 @@ function Advertisement() {
                                         <input type="email" className="form-control mt-3" placeholder='Email' name='email' onChange={postAdvertisementInfo} />
                                         <input type="text" className="form-control mt-3" placeholder='Website' name='website' onChange={postAdvertisementInfo} />
                                         <input type="text" className="form-control mt-3" placeholder='Business Address' name='business_address' onChange={postAdvertisementInfo} />
-                                        <button type="submit" className="btn btn-primary btn-lg btn-block mt-3" data-bd-dismiss="modal">Send</button>
+                                        <button type="submit" className="btn btn-primary btn-lg btn-block mt-3" data-bs-dismiss="modal">Send</button>
                                     </div>
                                 </form>
                             </div>

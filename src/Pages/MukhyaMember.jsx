@@ -217,7 +217,7 @@ const MukhyaMember = () => {
           <div className="modal-dialog">
             <div className="modal-content">
               <div className="modal-header">
-                <h4 className="modal-title" id="exampleModalLabel">Add New Data</h4>
+                <h4 className="modal-title" id="exampleModalLabel">Add New Mukhiya</h4>
                 <button type="button" className="btn-close" ref={refClose1} data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div className="modal-body">

@@ -1,4 +1,5 @@
-const BASE_URL = "http://localhost:5000"
+// const BASE_URL = "http://localhost:5000"
+const BASE_URL = "http://67.205.176.136:5000"
 
 
 const apiconst = {
@@ -49,6 +50,11 @@ const apiconst = {
 
     //Download Excel Sheet
     downloadSheet: `${BASE_URL}/api/admin/mukhiya/excel`,
+
+    getCommityMembers: `${BASE_URL}/api/commitymember`,
+    addCommityMembers: `${BASE_URL}/api/cammitymember/add`,
+    deleteCommityMembers: `${BASE_URL}/api/commitymember/remove/`
+
 }
 
 export { apiconst, BASE_URL }
