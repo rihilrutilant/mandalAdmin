@@ -110,7 +110,7 @@ const Slider = () => {
                         {
                             setsliderimg && setsliderimg.map((item, key) => (
                                 <div key={key} className="imgs_container">
-                                    <img src={apiconst.getAnyImages+item.slider_photo} alt="slider" className='sub_imgs' />
+                                    <img src={apiconst.getAnyImages + item.slider_photo} alt="slider" className='sub_imgs' />
                                     <div className="overlay"></div>
                                     <div className="button">
                                         <Link to="#" onClick={() => deleteSlider(item.slider_id)}>

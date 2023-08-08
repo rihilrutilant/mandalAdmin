@@ -2,7 +2,6 @@ import React, { useCallback, useEffect, useState, useRef } from 'react'
 import SideBar from "../component/SideBar"
 import Navbar from '../component/Navbar'
 import { apiconst } from '../Globle/keys'
-import axios from 'axios'
 import '../style/Headline.css'
 import { BiEditAlt } from 'react-icons/bi'
 import makeAPIRequest from '../Globle/apiCall'

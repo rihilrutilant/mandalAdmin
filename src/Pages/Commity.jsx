@@ -38,6 +38,7 @@ const Commity = () => {
     const getAllCommity = useCallback(() => {
         makeAPIRequest('get', apiconst.getCommityMembers, null, null, null)
             .then((res) => {
+                console.log("🚀 ~ file: Commity.jsx:41 ~ .then ~ res:", res)
                 setGetData(res.data.data)
             }).catch((err) => {
                 console.log(err);
@@ -90,12 +91,12 @@ const Commity = () => {
                                 <tbody>
                                     {
                                         getData?.map((item, index) => (
-                                            <tr className='tbody-tr'>
-                                                <th scope="row"><img src={apiconst.getAnyImages + item?.mukhiya_profile_photo} alt="photo" className='inner-photo' /></th>
+                                            <tr className='tbody-tr' key={index}>
+                                                <th scope="row"><img src={item?.mukhiya_profile_photo === null ? require("../assets/user.jpeg") : apiconst.getAnyImages + item?.mukhiya_profile_photo} alt="mukhiya" className='inner-photo' /></th>
                                                 <td>{item?.memberid}</td>
-                                                <td>{item?.middle_name + " " + item?.last_name}</td>
+                                                <td>{item?.first_name + " " + item?.middle_name + " " + item?.last_name}</td>
                                                 <td>{item?.type}</td>
-                                                <td><AiFillDelete onClick={() => deleteCommityMembers(item.mukhiyaid)} className='cursor-pointer1' /></td>
+                                                <td><AiFillDelete onClick={() => deleteCommityMembers(item?.id)} className='cursor-pointer1' /></td>
                                             </tr>
                                         ))
                                     }

@@ -12,6 +12,7 @@ const FetchData = () => {
 
     // ----------------------- get members ----------------------------
     const [getDataOFMembers, setGetDataOFMembers] = useState([])
+
     const getAllMembers = useCallback((Id) => {
         makeAPIRequest('get', apiconst.getMembersOfMukiya + Id, null, null, null)
             .then((res) => {
@@ -20,7 +21,7 @@ const FetchData = () => {
             .catch((err) => {
                 console.log(err);
             })
-    }, [Id],)
+    }, [Id])
 
     // ----------------------- get members ----------------------------
     const [modelData, setModelData] = useState()
@@ -68,7 +69,7 @@ const FetchData = () => {
                 <Navbar />
                 <div className="inner-form-data">
                     <div className="add-data">
-                        <button className='ad_slider_btn' onClick={downloadExcelSheet}>Download Excle</button>                    
+                        <button className='ad_slider_btn' onClick={downloadExcelSheet}>Download Excle</button>
                     </div>
                     <div className='first-line'>
                         {/* <h3>Mukhya Name: Jenish Vekariya</h3> */}
@@ -89,7 +90,7 @@ const FetchData = () => {
                                 {
                                     getDataOFMembers?.map((item, index) => (
                                         <tr key={index} className='tbody-tr' onClick={() => dataOfModel(item)} data-toggle="modal" data-target="#myDataModel">
-                                            <th scope="row"><img src={apiconst.getAnyImages + item?.member_profile_photo} alt="photo" className='inner-photo' /></th>
+                                            <td><img src={apiconst.getAnyImages + item?.member_profile_photo} alt="myphoto" className='inner-photo' /></td>
                                             <td>{item?.member_name}</td>
                                             <td>{item?.member_mobile_no}</td>
                                             <td>{new Date(item?.birth_date).toISOString().split('T')[0]}</td>
@@ -114,7 +115,7 @@ const FetchData = () => {
                                 </button>
                             </div>
                             <div className="modal-body">
-                                <table class="table">
+                                <table className="table">
                                     <thead>
                                         <tr>
                                             <th scope="col">Title</th>

@@ -4,7 +4,6 @@ import '../style/MukhyaMember.css'
 import SideBar from "../component/SideBar"
 import Navbar from '../component/Navbar'
 import { apiconst } from '../Globle/keys'
-import { BiEditAlt } from 'react-icons/bi'
 import makeAPIRequest from '../Globle/apiCall'
 import { AiFillDelete } from 'react-icons/ai'
 
@@ -105,7 +104,7 @@ const Notice = () => {
                     {
                       getNotices?.map((item, index) => (
                         <tr key={index} className='tbody-tr'>
-                          <th scope="row"><img src={apiconst.getAnyImages + item.photo} alt="photo" className='inner-photo' /></th>
+                          <th scope="row"><img src={item?.photo === null ? require("../assets/user.jpeg") : apiconst?.getAnyImages + item?.photo} alt="myphoto" className='inner-photo' /></th>
                           <td>{item.notes}</td>
                           <td>{item.year}</td>
                           <td><AiFillDelete onClick={() => deleteNotice(item.suchna_id)} /></td>

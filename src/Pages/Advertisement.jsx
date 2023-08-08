@@ -2,10 +2,9 @@ import React, { useCallback, useEffect, useRef, useState } from 'react'
 import SideBar from '../component/SideBar'
 import Navbar from '../component/Navbar'
 import "../style/FetchData.css"
-import axios from 'axios'
 import { FaTrash } from "react-icons/fa"
 import makeAPIRequest from '../Globle/apiCall'
-import { BASE_URL, apiconst } from '../Globle/keys'
+import { apiconst } from '../Globle/keys'
 
 function Advertisement() {
     const refClose = useRef(null)
@@ -72,7 +71,7 @@ function Advertisement() {
 
         makeAPIRequest('post', apiconst.createAdvertisementData, formData, null, null)
             .then((response) => {
-                if(response.data.message){
+                if (response.data.message) {
                     refClose.current.click()
                     getData()
                 }
@@ -111,7 +110,7 @@ function Advertisement() {
                                 {
                                     advertisementData.map((items, index) => (
                                         <tr className='tbody-tr' key={index}>
-                                            <td scope="row"><img src={apiconst?.getAnyImages + items?.photo} alt="photo" className='inner-photo' /></td>
+                                            <td><img src={apiconst?.getAnyImages + items?.photo} alt="myphoto" className='inner-photo' /></td>
                                             <td className='align-middle'> {items.business_name} </td>
                                             <td className='align-middle'> {items.owner_name} </td>
                                             <td className='align-middle'> {items.city} </td>
@@ -133,9 +132,9 @@ function Advertisement() {
                 <div className="modal fade" id="exampleModal-advertisement" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div className="modal-dialog" role="document">
                         <div className="modal-content">
-                            <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="exampleModalLabel">Add Advertisement</h1>
-                                <button ref={refClose} type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <div className="modal-header">
+                                <h1 className="modal-title fs-5" id="exampleModalLabel">Add Advertisement</h1>
+                                <button ref={refClose} type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div className="modal-body">
                                 <form action="" method="post" encType='multipart/form-data' onSubmit={formSubmitHandle}>

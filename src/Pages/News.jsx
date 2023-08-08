@@ -16,7 +16,6 @@ const News = () => {
   const getALLNews = useCallback(() => {
     makeAPIRequest('get', apiconst.getAllNews, null, null, null)
       .then((response) => {
-        console.log('response: ', response);
         setNews(response.data.newsData)
       }).catch(() => {
         alert("There is something wrong entry")
@@ -48,7 +47,6 @@ const News = () => {
 
     makeAPIRequest("post", apiconst.createNews, formData, null, null)
       .then((res) => {
-        console.log(res.data);
         refClose.current.click()
         getALLNews()
       })
@@ -64,7 +62,6 @@ const News = () => {
   const deleteNews = (id) => {
     makeAPIRequest("delete", apiconst.remove_News + id, null, null)
       .then((res) => {
-        console.log('res:-------------- ', res);
         getALLNews()
       })
       .catch((err) => {
@@ -108,7 +105,7 @@ const News = () => {
                   news?.map((item, index) => (
                     <tr key={index}>
                       <th scope="row" className='all-padding1'>{index + 1}</th>
-                      <td><img src={apiconst.getAnyImages + item?.photo} alt="photo" className='inner-photo' /></td>
+                      <td><img src={apiconst.getAnyImages + item?.photo} alt="myphoto" className='inner-photo' /></td>
                       <td>{item?.news}</td>
                       <td><AiFillDelete onClick={() => deleteNews(item?.news_id)} /></td>
                     </tr>
@@ -143,29 +140,6 @@ const News = () => {
           </div>
         </div >
         {/* --------- Add Data --------------- */}
-
-        {/* --------- Update Data --------------- */}
-
-        <div className="modal fade" id="exampleModalnews" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div className="modal-dialog">
-            <div className="modal-content">
-              <div className="modal-header">
-                <h4 className="modal-title" id="exampleModalLabel">Update Data</h4>
-                <button type="button" className="btn-close" ref={refClose} data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div className="modal-body">
-                <p className='modal-title-name'>images</p>
-                <input type="text" className='input-tag' name='photo' onChange={(e) => setNewsImg(e.target.files[0])} />
-                <p className='modal-title-name'>News</p>
-                <input type="text" className='input-tag' name='news' onChange={onChanges} />
-              </div>
-              <div className="modal-footer">
-                <button type="submit" onClick={createNews} className="ad_slider_btn2">Save changes</button>
-              </div>
-            </div>
-          </div>
-        </div>
-        {/* --------- Update Data --------------- */}
 
       </div >
     </>

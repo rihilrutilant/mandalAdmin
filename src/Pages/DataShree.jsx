@@ -111,7 +111,7 @@ function DataShree() {
                                     {
                                         getDataShresData?.map((item, index) => (
                                             <tr key={index} className='tbody-tr'>
-                                                <th scope="row"><img src={apiconst.getAnyImages + item.image} alt="photo" className='inner-photo' /></th>
+                                                <th scope="row"><img src={apiconst.getAnyImages + item.image} alt="myphoto" className='inner-photo' /></th>
                                                 <td>{item.name}</td>
                                                 <td>{item.village}</td>
                                                 <td>{item.dataShreeType}</td>
@@ -130,7 +130,7 @@ function DataShree() {
 
                     {/* ------------------- Modal --------------------------------- */}
 
-                    <div className="modal fade" id="dataShree" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div className="modal fade" id="dataShree" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div className="modal-dialog" role="document">
                             <div className="modal-content">
                                 <div className="modal-header">

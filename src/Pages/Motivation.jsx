@@ -38,7 +38,8 @@ const Motivation = () => {
         setAddMotivations({ ...addMotivations, [e.target.name]: e.target.value })
     }
 
-    const addMotivationsByMotivators = () => {
+    const addMotivationsByMotivators = (e) => {
+        e.preventDefault()
         const formData = new FormData();
         formData.append("photo", motivatorImg)
         formData.append("notes", addMotivations.notes)
@@ -47,8 +48,8 @@ const Motivation = () => {
         makeAPIRequest("post", apiconst.createMotivation, formData, null, null)
             .then((res) => {
                 console.log(res.data);
-                refClose.current.click()
                 getAllMotivations()
+                refClose.current.click()
             })
             .catch((err) => {
                 console.log(err);
@@ -56,7 +57,7 @@ const Motivation = () => {
     }
 
     // -------------------------- Add motivation ------------------------
-    
+
 
     //-----------------------remove motivation---------------------
 
@@ -70,7 +71,7 @@ const Motivation = () => {
             })
     }
 
-   // -------------------------------remove motivation----------------------
+    // -------------------------------remove motivation----------------------
 
 
     useEffect(() => {
@@ -103,7 +104,7 @@ const Motivation = () => {
                                 {
                                     motivation?.map((item, index) => (
                                         <tr className='tbody-tr' key={index} data-toggle="modal" data-target="#exampleModal">
-                                            <th scope="row"><img src={apiconst.getAnyImages + item.photo} alt="photo" className='inner-photo' /></th>
+                                            <td><img src={item?.photo === null ? require("../assets/user.jpeg") : apiconst.getAnyImages + item.photo} alt="myphoto" className='inner-photo' /></td>
                                             <td>{item.notes}</td>
                                             <td>{item.motivation_By}</td>
                                             <td>{item.created_date.slice(0, 10)}</td>
@@ -133,7 +134,7 @@ const Motivation = () => {
                                     <input required type="text" className='input-tag' name='motivation_By' onChange={onChanges} />
                                 </div>
                                 <div className="modal-footer">
-                                    <button type="submit" onClick={addMotivationsByMotivators} className="ad_slider_btn2">Save changes</button>
+                                    <button type="submit" className="ad_slider_btn2">Save changes</button>
                                 </div>
                             </form>
                         </div>

@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import Navbar from '../component/Navbar'
 import SideBar from '../component/SideBar'
 import "../style/FetchData.css"
-import { BASE_URL, apiconst } from '../Globle/keys';
+import { apiconst } from '../Globle/keys';
 import makeAPIRequest from '../Globle/apiCall';
 import { FaTrash } from 'react-icons/fa';
 
@@ -13,22 +13,33 @@ function Event() {
         notes: "", year: "",
     })
     const [eventId, setEventId] = useState('')
+    const refClose1 = useRef(null)
+    const refClose2 = useRef(null)
+
+    const GetAllData = useCallback(
+        () => {
+            makeAPIRequest('get', apiconst.getEventData, null, null, null)
+                .then((response) => {
+                    setEventData(response.data.event)
+                })
+                .catch((error) => {
+                    console.log(error);
+                })
+        },
+        [],
+    )
+
 
     // Fetch Event Data
     useEffect(() => {
-        makeAPIRequest('get', apiconst.getEventData, null, null, null)
-            .then((response) => {
-                setEventData(response.data.event)
-            })
-            .catch((error) => {
-                console.log(error);
-            })
-    }, [])
+        GetAllData()
+    }, [GetAllData])
 
     // Delete Event Data
     const deleteEventData = (eventId) => {
         makeAPIRequest('delete', apiconst.deleteEventData + eventId, null, null, null)
             .then((response) => {
+                GetAllData()
                 alert(response.data.message)
             })
             .catch((error) => {
@@ -51,6 +62,8 @@ function Event() {
 
         makeAPIRequest('post', apiconst.createEventData, formData, null, null)
             .then((response) => {
+                refClose1.current.click()
+                GetAllData()
                 alert("Event Record are created successfully")
             })
             .catch((error) => {
@@ -72,6 +85,8 @@ function Event() {
 
         makeAPIRequest('post', apiconst.updateEventImage, formData, null, null)
             .then((response) => {
+                refClose2.current.click()
+                GetAllData()
                 alert("Event Record are created successfully")
             })
             .catch((error) => {
@@ -105,7 +120,7 @@ function Event() {
                                 {
                                     eventData.map((items, index) => (
                                         <tr className='tbody-tr' data-toggle="modal" key={index}>
-                                            <td scope="row"><img src={`${BASE_URL}/${items.profile_photo}`} alt="photo" className='inner-photo' /></td>
+                                            <td><img src={items?.profile_photo === null ? require("../assets/user.jpeg") : apiconst?.getAnyImages + items?.profile_photo} alt="myphoto" className='inner-photo' /></td>
                                             <td className='align-middle'> {items.notes} </td>
                                             <td className='align-middle'> {items.year} </td>
                                             <td className='align-middle'>
@@ -126,18 +141,16 @@ function Event() {
                     <div className="modal-dialog" role="document">
                         <div className="modal-content">
                             <div className="modal-header">
-                                <h5 className="modal-title" id="exampleModalLabel">Add Event</h5>
-                                <button type="button" className="close" data-bs-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
+                                <h1 className="modal-title fs-5" id="exampleModalLabel">Add Event</h1>
+                                <button type="button" className="btn-close" ref={refClose1} data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div className="modal-body">
-                                <form method="post" encType='multipart/form-data' onSubmit={postEventData}>
+                                <form encType='multipart/form-data' onSubmit={postEventData}>
                                     <input type="text" className="form-control mt-3" placeholder='Event Notes' name='notes' onChange={postEventInfo} />
                                     <input type="text" className="form-control mt-3 mb-3" placeholder='Event Years' name='year' onChange={postEventInfo} />
                                     <span style={{ fontSize: "18px" }}>Event Profile Image :- </span>
                                     <input type="file" className="form-control-file mt-2" id="exampleFormControlFile1" name='event_profile' onChange={(info) => setEventImage(info.target.files[0])} />
-                                    <button type="submit" className="btn btn-primary btn-lg btn-block mt-3" data-bd-dismiss="modal">Send</button>
+                                    <button type="submit" className="btn btn-primary btn-lg btn-block mt-3">Send</button>
                                 </form>
                             </div>
                             <div className="modal-footer">
@@ -156,16 +169,14 @@ function Event() {
                     <div className="modal-dialog" role="document">
                         <div className="modal-content">
                             <div className="modal-header">
-                                <h5 className="modal-title" id="exampleModalLabel">Add Event Photos</h5>
-                                <button type="button" className="close" data-bs-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
+                                <h1 className="modal-title fs-5" id="exampleModalLabel">Add Event Data</h1>
+                                <button type="button" className="btn-close" ref={refClose2} data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div className="modal-body">
-                                <form method="post" onSubmit={updateFormData}>
+                                <form onSubmit={updateFormData}>
                                     <span>Update Profile Photo :- </span><br />
                                     <input type="file" className="form-control-file mt-2" id="exampleFormControlFile1" name='event' onChange={(info) => setEventImage(info.target.files[0])} />
-                                    <button type="submit" className="btn btn-primary btn-lg btn-block mt-3" data-bd-dismiss="modal">Send</button>
+                                    <button type="submit" className="btn btn-primary btn-lg btn-block mt-3">Send</button>
                                 </form>
                             </div>
                             <div className="modal-footer">

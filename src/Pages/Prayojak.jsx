@@ -103,8 +103,8 @@ const Prayojak = () => {
                                 <tbody>
                                     {
                                         prayojakData?.map((item, index) => (
-                                            <tr className='tbody-tr'>
-                                                <th scope="row"><img src={apiconst.getAnyImages + item?.photo} alt="photo" className='inner-photo' /></th>
+                                            <tr className='tbody-tr' key={index}>
+                                                <th scope="row"><img src={apiconst.getAnyImages + item?.photo} alt="myphoto" className='inner-photo' /></th>
                                                 <td>{item?.name}</td>
                                                 <td>{item?.mobile_no}</td>
                                                 <td>{item?.village}</td>
