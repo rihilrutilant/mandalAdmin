@@ -3,6 +3,7 @@ import { apiconst } from '../Globle/keys'
 import logo from '../assets/logo.svg'
 import '../style/AdminLogin.css'
 import makeAPIRequest from '../Globle/apiCall'
+import MGPM from '../MGPM.apk'
 
 const AdminLogin = () => {
 
@@ -53,6 +54,7 @@ const AdminLogin = () => {
                 <div className="loginbtn-part">
                   <button className="loginbtn lrBtn" type="submit">SUBMIT</button>
                 </div>
+                <div className='mt-3'><a href={MGPM} download="MGPM" target="_blank" rel="noreferrer" style={{ textDecoration: "none",fontSize:"20px" }}>Click here to download Android App</a></div>
               </form>
             </div>
           </div>
